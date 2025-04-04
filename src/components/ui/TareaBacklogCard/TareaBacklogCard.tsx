@@ -19,7 +19,7 @@ export const TareaBacklogCard = ({
 	const handleSprintChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
 		const sprintId = e.target.value;
 		if (sprintId) {
-			handleMoveToSprint(tarea.id, sprintId);
+			handleMoveToSprint(tarea.id ?? "", sprintId);
 		}
 	};
 
