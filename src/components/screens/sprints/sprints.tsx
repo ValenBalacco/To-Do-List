@@ -11,17 +11,23 @@ interface SprintsProps {
 }
 
 export const Sprints = ({ sprintId, sprintName }: SprintsProps) => {
-  const { getTareasSprint, cambiarEstadoTarea, createTarea } = useTareas();
+  const { getTareasSprint, cambiarEstadoTarea, createTarea, putTareaEditar } = useTareas();
   const [tareasFiltradas, setTareasFiltradas] = useState<ITarea[]>([]);
+  const [openModalTarea, setOpenModalTarea] = useState(false);
+  const [tareaEditando, setTareaEditando] = useState<ITarea | null>(null);
 
   useEffect(() => {
     const tareas = getTareasSprint(sprintId); // Filtramos las tareas para este sprint
     setTareasFiltradas(tareas);
   }, [sprintId, getTareasSprint]);
 
-  const [openModalTarea, setOpenModalTarea] = useState(false);
-
   const handleOpenModalCreate = () => {
+    setTareaEditando(null); // Limpiamos la tarea en edición
+    setOpenModalTarea(true);
+  };
+
+  const handleOpenModalEdit = (tarea: ITarea) => {
+    setTareaEditando(tarea); // Establecemos la tarea en edición
     setOpenModalTarea(true);
   };
 
@@ -30,8 +36,15 @@ export const Sprints = ({ sprintId, sprintName }: SprintsProps) => {
   };
 
   const handleSaveTarea = (tarea: ITarea) => {
-    createTarea({ ...tarea, estado: "pendiente", sprintId }); // Creamos la tarea asociada al sprint actual
-    setTareasFiltradas((prev) => [...prev, { ...tarea, estado: "pendiente", sprintId }]);
+    if (tareaEditando) {
+      putTareaEditar(tarea); // Editamos la tarea existente
+      setTareasFiltradas((prev) =>
+        prev.map((t) => (t.id === tarea.id ? tarea : t))
+      );
+    } else {
+      createTarea({ ...tarea, estado: "pendiente", sprintId }); // Creamos la tarea asociada al sprint actual
+      setTareasFiltradas((prev) => [...prev, { ...tarea, estado: "pendiente", sprintId }]);
+    }
     setOpenModalTarea(false);
   };
 
@@ -64,6 +77,7 @@ export const Sprints = ({ sprintId, sprintName }: SprintsProps) => {
             key={tarea.id}
             tarea={tarea}
             handleChangeEstado={handleChangeEstado}
+            handleOpenModalEdit={handleOpenModalEdit} // Pasamos la función para editar
           />
         ))}
       </div>
@@ -74,6 +88,7 @@ export const Sprints = ({ sprintId, sprintName }: SprintsProps) => {
             key={tarea.id}
             tarea={tarea}
             handleChangeEstado={handleChangeEstado}
+            handleOpenModalEdit={handleOpenModalEdit} // Pasamos la función para editar
           />
         ))}
       </div>
@@ -84,11 +99,13 @@ export const Sprints = ({ sprintId, sprintName }: SprintsProps) => {
             key={tarea.id}
             tarea={tarea}
             handleChangeEstado={handleChangeEstado}
+            handleOpenModalEdit={handleOpenModalEdit} // Pasamos la función para editar
           />
         ))}
       </div>
       {openModalTarea && (
         <ModalCrearTarea
+          tarea={tareaEditando}
           handleCloseModal={handleCloseModal}
           handleSaveTarea={handleSaveTarea}
         />

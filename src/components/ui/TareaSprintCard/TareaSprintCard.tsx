@@ -4,9 +4,14 @@ import { ITarea } from "../../../types/ITarea";
 interface TareaSprintCardProps {
   tarea: ITarea;
   handleChangeEstado: (idTarea: string, nuevoEstado: string) => void;
+  handleOpenModalEdit: (tarea: ITarea) => void; // Nueva función para editar
 }
 
-export const TareaSprintCard = ({ tarea, handleChangeEstado }: TareaSprintCardProps) => {
+export const TareaSprintCard = ({
+  tarea,
+  handleChangeEstado,
+  handleOpenModalEdit,
+}: TareaSprintCardProps) => {
   const estados = ["pendiente", "en_proceso", "finalizada"];
 
   return (
@@ -23,6 +28,7 @@ export const TareaSprintCard = ({ tarea, handleChangeEstado }: TareaSprintCardPr
           </option>
         ))}
       </select>
+      <button onClick={() => handleOpenModalEdit(tarea)}>Editar</button>
     </div>
   );
 };
