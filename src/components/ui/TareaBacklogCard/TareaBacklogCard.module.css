@@ -31,6 +31,14 @@
   gap: 10px;
 }
 
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+.dropdown select{
+  color: black
+}
+
 button {
   background: none;
   border: none;

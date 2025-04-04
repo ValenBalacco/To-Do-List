@@ -1,0 +1,59 @@
+{
+	"sprintList": {
+		"sprints": [
+			{
+				"id": 0,
+				"name": "Sprint 0",
+				"startDate": "2022-12-01",
+				"endDate": "2022-12-14",
+				"status": "completed"
+			},
+			{
+				"id": 1,
+				"name": "Sprint 1",
+				"startDate": "2023-01-01",
+				"endDate": "2023-01-14",
+				"status": "completed"
+			},
+			{
+				"id": 2,
+				"name": "Sprint 2",
+				"startDate": "2023-01-15",
+				"endDate": "2023-01-28",
+				"status": "in-progress"
+			},
+			{
+				"id": 3,
+				"name": "Sprint 3",
+				"startDate": "2023-01-29",
+				"endDate": "2023-02-11",
+				"status": "upcoming"
+			}
+		]
+	},
+	"taskList": {
+		"tasks": [
+			{
+				"id": 0,
+				"name": "Task 1",
+				"description": "Description for Task 1",
+				"sprintId": 0,
+				"status": "completed"
+			},
+			{
+				"id": 1,
+				"name": "Task 2",
+				"description": "Description for Task 2",
+				"sprintId": 1,
+				"status": "in-progress"
+			},
+			{
+				"id": 2,
+				"name": "Task 3",
+				"description": "Description for Task 3",
+				"sprintId": 2,
+				"status": "upcoming"
+			}
+		]
+	}
+}

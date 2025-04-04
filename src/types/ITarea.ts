@@ -4,5 +4,6 @@ export interface ITarea {
 	descripcion: string;
 	fechaLimite: string;
 	estado?: string;
-	sprintId?: string; // Optional property added
+	prioridad?: string;
+	sprintId?: string;
 }
