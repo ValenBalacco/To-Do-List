@@ -1,0 +1,22 @@
+.containerBacklog {
+  padding: 20px;
+}
+
+.crearTareaButton {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.crearTareaButton:hover {
+  background-color: #45a049;
+}
+
+.backlogIcon {
+  font-size: 20px;
+}
