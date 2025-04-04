@@ -64,9 +64,7 @@ export const Backlog = () => {
         <h1>Backlog</h1>
         <button className={styles.crearTareaButton} onClick={handleOpenModalCreate}>
           Crear Tarea
-          <span className={`material-symbols-outlined ${styles.backlogIcon}`}>
-            playlist_add
-          </span>
+          <span className="material-symbols-outlined"></span>
         </button>
 
         {tareas?.length > 0 ? (
