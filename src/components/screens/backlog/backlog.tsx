@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { useTareas } from "../../../hooks/useTareas";
-import { tareaStore } from "../../../store/tareaStore";
 import styles from "./Backlog.module.css";
 import { TareaBacklogCard } from "../../ui/TareaBacklogCard/TareaBacklogCard";
 import { ITarea } from "../../../types/ITarea";
