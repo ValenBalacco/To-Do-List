@@ -1,47 +1,88 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ITarea } from "../types/ITarea";
 
 export const useTareas = () => {
-  const [tareas, setTareas] = useState<ITarea[]>([]);
-  const [tareasSprint, setTareasSprint] = useState<ITarea[]>([]);
+  const [tareas, setTareas] = useState<ITarea[]>(() => {
+    try {
+      const savedTareas = localStorage.getItem("tareas");
+      return savedTareas ? JSON.parse(savedTareas) : [];
+    } catch {
+      return [];
+    }
+  });
+
+  const [tareasSprint, setTareasSprint] = useState<ITarea[]>(() => {
+    try {
+      const savedTareasSprint = localStorage.getItem("tareasSprint");
+      return savedTareasSprint ? JSON.parse(savedTareasSprint) : [];
+    } catch {
+      return [];
+    }
+  });
+
+  useEffect(() => {
+    localStorage.setItem("tareas", JSON.stringify(tareas));
+  }, [tareas]);
+
+  useEffect(() => {
+    localStorage.setItem("tareasSprint", JSON.stringify(tareasSprint));
+  }, [tareasSprint]);
 
   const getTareas = () => {
-    // Simulación de obtención de tareas desde una API o base de datos
-    const tareasMock: ITarea[] = [
-      { id: "1", titulo: "Tarea 1", descripcion: "Descripción de la tarea 1", fechaLimite: "2023-12-01" },
-      { id: "2", titulo: "Tarea 2", descripcion: "Descripción de la tarea 2", fechaLimite: "2023-12-02" },
-    ];
-    setTareas(tareasMock);
+    // No necesitamos cargar tareas aquí porque ya se cargan desde localStorage
   };
 
-  const getTareasSprint = () => {
-    // Simulación de obtención de tareas del sprint desde una API o base de datos
-    const tareasSprintMock: ITarea[] = [
-      { id: "3", titulo: "Tarea Sprint 1", descripcion: "Descripción de la tarea sprint 1", fechaLimite: "2023-12-31" },
-    ];
-    setTareasSprint(tareasSprintMock);
+  const getTareasSprint = (sprintId: string) => {
+    // No sobrescribimos el estado global, solo filtramos las tareas para la pantalla actual
+    return tareasSprint.filter((tarea) => tarea.sprintId === sprintId);
   };
 
   const eliminarTarea = (idTarea: string) => {
     setTareas((prev) => prev.filter((tarea) => tarea.id !== idTarea));
+    setTareasSprint((prev) => prev.filter((tarea) => tarea.id !== idTarea));
   };
 
-  const moverTareaASprint = (idTarea: string) => {
+  const moverTareaASprint = (idTarea: string, sprintId: string) => {
     const tarea = tareas.find((tarea) => tarea.id === idTarea);
     if (tarea) {
       setTareas((prev) => prev.filter((tarea) => tarea.id !== idTarea));
-      setTareasSprint((prev) => [...prev, tarea]);
+      setTareasSprint((prev) => [
+        ...prev,
+        { ...tarea, sprintId, estado: "pendiente" }, // Asignamos el sprintId y el estado "pendiente"
+      ]);
     }
   };
 
   const putTareaEditar = (tareaEditada: ITarea) => {
-    setTareas((prev) =>
-      prev.map((tarea) => (tarea.id === tareaEditada.id ? tareaEditada : tarea))
-    );
+    if (tareaEditada.sprintId) {
+      setTareasSprint((prev) =>
+        prev.map((tarea) =>
+          tarea.id === tareaEditada.id ? tareaEditada : tarea
+        )
+      );
+    } else {
+      setTareas((prev) =>
+        prev.map((tarea) =>
+          tarea.id === tareaEditada.id ? tareaEditada : tarea
+        )
+      );
+    }
   };
 
   const createTarea = (nuevaTarea: ITarea) => {
-    setTareas((prev) => [...prev, nuevaTarea]);
+    if (nuevaTarea.sprintId) {
+      setTareasSprint((prev) => [...prev, nuevaTarea]);
+    } else {
+      setTareas((prev) => [...prev, nuevaTarea]);
+    }
+  };
+
+  const cambiarEstadoTarea = (idTarea: string, nuevoEstado: string) => {
+    setTareasSprint((prev) =>
+      prev.map((tarea) =>
+        tarea.id === idTarea ? { ...tarea, estado: nuevoEstado } : tarea
+      )
+    );
   };
 
   return {
@@ -53,5 +94,6 @@ export const useTareas = () => {
     tareasSprint,
     putTareaEditar,
     createTarea,
+    cambiarEstadoTarea,
   };
 };

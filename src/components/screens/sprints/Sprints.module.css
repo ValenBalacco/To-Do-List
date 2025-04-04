@@ -1,7 +1,48 @@
 .containerSprints {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
   padding: 20px;
 }
 
 h1 {
-  color: #333;
+  color: #007bff;
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.tareasList {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.column {
+  flex: 1;
+  background-color: #f8f9fa;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.column h2 {
+  margin-bottom: 15px;
+  font-size: 18px;
+  color: #212529;
+}
+
+.crearTareaButton {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 12px 25px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.crearTareaButton:hover {
+  background-color: #0056b3;
 }
