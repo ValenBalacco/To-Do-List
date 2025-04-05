@@ -1,5 +1,5 @@
 {
-	"sprintList": {
+	"listaSprints": {
 		"sprints": [
 			{
 				"id": 0,
@@ -31,8 +31,8 @@
 			}
 		]
 	},
-	"taskList": {
-		"tasks": [
+	"listaTareas": {
+		"tareas": [
 			{
 				"id": 0,
 				"name": "Task 1",

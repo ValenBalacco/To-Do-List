@@ -4,7 +4,7 @@ import { ITarea } from "../types/ITarea";
 interface ITareaStore {
 	tareas: ITarea[];
 	tareaActiva: ITarea | null;
-	setTareaActiva: (TareaActiva: ITarea | null) => void;
+	setTareaActiva: (tareaActiva: ITarea | null) => void;
 	setArrayTareas: (arrayDeTareas: ITarea[]) => void;
 	agregarNuevaTarea: (nuevaTarea: ITarea) => void;
 	editarUnaTarea: (tareaActualizada: ITarea) => void;
@@ -15,12 +15,16 @@ export const tareaStore = create<ITareaStore>((set) => ({
 	tareas: [],
 	tareaActiva: null,
 
+	//setea la tarea activa
 	setTareaActiva: (tareaActivaIn) => set(() => ({ tareaActiva: tareaActivaIn })),
 
+	//setear el array de tareas
 	setArrayTareas: (arrayDeTareas) => set(() => ({ tareas: arrayDeTareas })),
 
+	//agregar una nueva tarea
 	agregarNuevaTarea: (nuevaTarea) => set((state) => ({ tareas: [...state.tareas, nuevaTarea] })),
 
+	//editar una tarea
 	editarUnaTarea: (tareaEditada) =>
 		set((state) => {
 			const arregloTareas = state.tareas.map((tarea) =>
