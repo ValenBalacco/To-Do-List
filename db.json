@@ -1,59 +1,59 @@
 {
-	"listaSprints": {
-		"sprints": [
-			{
-				"id": 0,
-				"name": "Sprint 0",
-				"startDate": "2022-12-01",
-				"endDate": "2022-12-14",
-				"status": "completed"
-			},
-			{
-				"id": 1,
-				"name": "Sprint 1",
-				"startDate": "2023-01-01",
-				"endDate": "2023-01-14",
-				"status": "completed"
-			},
-			{
-				"id": 2,
-				"name": "Sprint 2",
-				"startDate": "2023-01-15",
-				"endDate": "2023-01-28",
-				"status": "in-progress"
-			},
-			{
-				"id": 3,
-				"name": "Sprint 3",
-				"startDate": "2023-01-29",
-				"endDate": "2023-02-11",
-				"status": "upcoming"
-			}
-		]
-	},
-	"listaTareas": {
-		"tareas": [
-			{
-				"id": 0,
-				"name": "Task 1",
-				"description": "Description for Task 1",
-				"sprintId": 0,
-				"status": "completed"
-			},
-			{
-				"id": 1,
-				"name": "Task 2",
-				"description": "Description for Task 2",
-				"sprintId": 1,
-				"status": "in-progress"
-			},
-			{
-				"id": 2,
-				"name": "Task 3",
-				"description": "Description for Task 3",
-				"sprintId": 2,
-				"status": "upcoming"
-			}
-		]
-	}
+  "tareas": [
+    {
+      "id": "1743884452304",
+      "titulo": "asdfadsf",
+      "descripcion": "345345",
+      "fechaLimite": "34543-05-31"
+    },
+    {
+      "id": "1743884452303",
+      "titulo": "34534534",
+      "descripcion": "345345",
+      "fechaLimite": "34543-05-31"
+    },
+    {
+      "titulo": "2343444",
+      "descripcion": "234",
+      "fechaLimite": "2025-04-09",
+      "id": "1743891951920"
+    },
+    {
+      "id": "1743892009095",
+      "titulo": "wer",
+      "descripcion": "234",
+      "fechaLimite": "0234-04-23"
+    },
+    {
+      "id": "1743893248434",
+      "titulo": "234",
+      "descripcion": "234",
+      "fechaLimite": "2025-04-10"
+    }
+  ],
+  "sprints": [
+    {
+      "id": "1743884452305",
+      "titulo": "34534534",
+      "descripcion": "345345",
+      "fechaLimite": "34543-05-31",
+      "nombre": "45345",
+      "fechaInicio": "2025-04-18",
+      "fechaCierre": "2025-04-17"
+    },
+    {
+      "id": "1743892897066",
+      "nombre": "coso",
+      "fechaInicio": "2025-04-10",
+      "fechaCierre": "2025-04-16",
+      "tareas": []
+    },
+    {
+      "id": "1743893094457",
+      "nombre": "Loca",
+      "fechaInicio": "2025-04-16",
+      "fechaCierre": "2025-04-17",
+      "tareas": []
+    }
+  ]
 }

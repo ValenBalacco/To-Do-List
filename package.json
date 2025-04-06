@@ -1,5 +1,5 @@
 {
-	"name": "to-dolist",
+	"name": "tp1_zustand",
 	"private": true,
 	"version": "0.0.0",
 	"type": "module",
@@ -7,16 +7,18 @@
 		"dev": "vite",
 		"build": "tsc -b && vite build",
 		"lint": "eslint .",
-		"dbDev": "npx json-server --watch db.json --port 3000",
-		"preview": "vite preview"
+		"preview": "vite preview",
+		"bdDev": "npx json-server --watch db.json --port 3000"
 	},
 	"dependencies": {
-		"axios": "^1.8.4",
+		"axios": "^1.8.3",
+		"bootstrap": "^5.3.5",
 		"json-server": "^1.0.0-beta.3",
 		"react": "^19.0.0",
 		"react-bootstrap": "^2.10.9",
 		"react-dom": "^19.0.0",
-		"sweetalert2": "^11.17.2",
+		"react-router": "^7.5.0",
+		"sweetalert2": "^11.6.13",
 		"zustand": "^5.0.3"
 	},
 	"devDependencies": {

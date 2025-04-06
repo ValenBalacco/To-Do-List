@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { ITarea } from "../types/ITarea";
+import { ITarea } from "../types/iTarea";
 
 interface ITareaStore {
 	tareas: ITarea[];
@@ -15,13 +15,13 @@ export const tareaStore = create<ITareaStore>((set) => ({
 	tareas: [],
 	tareaActiva: null,
 
-	//setea la tarea activa
+	//setear la tarea activa
 	setTareaActiva: (tareaActivaIn) => set(() => ({ tareaActiva: tareaActivaIn })),
 
-	//setear el array de tareas
+	//agregar array de tareas
 	setArrayTareas: (arrayDeTareas) => set(() => ({ tareas: arrayDeTareas })),
 
-	//agregar una nueva tarea
+	//agregar nueva tarea
 	agregarNuevaTarea: (nuevaTarea) => set((state) => ({ tareas: [...state.tareas, nuevaTarea] })),
 
 	//editar una tarea
