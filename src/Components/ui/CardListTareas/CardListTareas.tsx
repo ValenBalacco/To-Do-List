@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { ITarea } from "../../../types/iTarea";
 import { useTareas } from "../../../Hooks/useTareas";
-import { Card, Button } from "react-bootstrap";
+import { Card, Button, Form } from "react-bootstrap";
 
 type ICardListTareas = {
 	tarea: ITarea;
@@ -29,31 +29,20 @@ export const CardListTareas: FC<ICardListTareas> = ({ tarea, handleOpenModalEdit
 				<Card.Text className="mb-0">
 					Fecha Límite: <br /> <strong>{tarea.fechaLimite}</strong>
 				</Card.Text>
+				<Card.Text className="mb-0">
+					Estado: <br /> <strong>{tarea.estado}</strong>
+				</Card.Text>
 
-				{/* <Form.Group className="mb-3">
-					<Form.Label>
-						<h5 className="mb-2">Mover a:</h5>
-					</Form.Label>
+				<Form.Group>
+					<Form.Label className="mb-1">Seleccionar Sprint</Form.Label>
 					<Form.Select
-						onChange={handleSprintChange}
-						defaultValue=""
+						className="mb-2"
+						// value={tarea.estado}
+						size="sm"
 					>
-						<option
-							value=""
-							disabled
-						>
-							Seleccionar Sprint
-						</option>
-						{sprints.map((sprint) => (
-							<option
-								key={sprint.id}
-								value={sprint.id}
-							>
-								{sprint.name}
-							</option>
-						))}
+						<option>Backlog</option>
 					</Form.Select>
-				</Form.Group> */}
+				</Form.Group>
 
 				<div className="d-flex gap-2 mt-3 mt-md-0">
 					<Button

@@ -13,6 +13,7 @@ const initialState: ITarea = {
 	titulo: "",
 	descripcion: "",
 	fechaLimite: "",
+	estado: "Por hacer",
 };
 
 export const ModalTarea: FC<IModalTarea> = ({ handleCloseModal, show }) => {
@@ -28,7 +29,9 @@ export const ModalTarea: FC<IModalTarea> = ({ handleCloseModal, show }) => {
 		else setFormValues(initialState);
 	}, [tareaActiva]);
 
-	const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+	const handleChange = (
+		e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+	) => {
 		const { name, value } = e.target;
 		setFormValues((prev) => ({ ...prev, [name]: value }));
 	};
@@ -67,7 +70,6 @@ export const ModalTarea: FC<IModalTarea> = ({ handleCloseModal, show }) => {
 							onChange={handleChange}
 						/>
 					</Form.Group>
-
 					<Form.Group className="mb-3">
 						<Form.Label>Descripción</Form.Label>
 						<Form.Control
@@ -80,7 +82,6 @@ export const ModalTarea: FC<IModalTarea> = ({ handleCloseModal, show }) => {
 							rows={3}
 						/>
 					</Form.Group>
-
 					<Form.Group className="mb-3">
 						<Form.Label>Fecha Límite</Form.Label>
 						<Form.Control
@@ -92,6 +93,17 @@ export const ModalTarea: FC<IModalTarea> = ({ handleCloseModal, show }) => {
 							onChange={handleChange}
 						/>
 					</Form.Group>
+					<Form.Select
+						aria-label="Seleccionar Estado"
+						name="estado"
+						onChange={handleChange}
+						value={formValues.estado}
+					>
+						<option value="Por Hacer">Por Hacer</option>
+						<option value="En Progreso">En Progreso</option>
+						<option value="Hecho">Hecho</option>
+					</Form.Select>
+					);
 				</Modal.Body>
 				<Modal.Footer>
 					<Button
