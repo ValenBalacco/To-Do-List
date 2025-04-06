@@ -1,0 +1,73 @@
+.containerPrincipalModal {
+	position: absolute;
+	top: 0;
+	left: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100vw;
+	height: 100vh;
+	backdrop-filter: brightness(70%) blur(2px);
+}
+
+.contentPopUp {
+	background-color: #333;
+	box-shadow: 5px 2px 10px rgba(88, 88, 88, 0.6);
+	width: 35vw;
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+	align-items: center;
+	justify-content: space-around;
+	padding: 1rem;
+	border-radius: 0.4rem;
+	border: 2px solid #ff6600;
+}
+
+.h3ModalTitle {
+	color: #fff;
+}
+
+.formContent {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+	gap: 1rem;
+}
+
+.formContent input,
+textarea {
+	width: 100%;
+	padding: 0.3rem;
+	resize: none;
+	margin: 0.4rem 0;
+	border: 1px solid #444;
+	background-color: #fff;
+	color: #444;
+	border-radius: 0.4rem;
+}
+
+.formContent input:focus,
+textarea:focus {
+	outline: none;
+	border-color: #ff6600;
+}
+
+.buttonCard {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+}
+
+.buttonCard button {
+	background-color: #ff6600;
+	color: #fff;
+	border: none;
+	padding: 0.5rem 1rem;
+	border-radius: 0.3rem;
+	cursor: pointer;
+}
+
+.buttonCard button:hover {
+	background-color: #e65c00;
+}
