@@ -1,10 +1,9 @@
 import { useEffect, useState } from "react";
 import { useTareas } from "../../../Hooks/useTareas";
 import { tareaStore } from "../../../Store/tareaStore";
-import { ITarea } from "../../../types/iTarea";
 import { CardListTareas } from "../../ui/CardListTareas/CardListTareas";
 import { ModalTarea } from "../../ui/Modales/ModalTarea/ModalTarea";
-
+import { ITarea } from "../../../types/ITarea";
 import { Container, Row, Col, Button } from "react-bootstrap";
 
 export const ViewTareas = () => {

@@ -3,7 +3,6 @@ import Swal from "sweetalert2";
 import { sprintStore } from "../Store/sprintStore";
 import { editarSprint, eliminarSprintPorId, getAllSprints, postNuevoSprint } from "../http/sprints";
 import { ISprint } from "../types/ISprint";
-import { eliminarTareaPorId } from "../http/tareas";
 
 export const useSprints = () => {
 	const {

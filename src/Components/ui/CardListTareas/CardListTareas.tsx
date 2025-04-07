@@ -1,7 +1,8 @@
 import { FC } from "react";
-import { ITarea } from "../../../types/iTarea";
+import { ITarea } from "../../../types/ITarea";
 import { useTareas } from "../../../Hooks/useTareas";
 import { Card, Button, Form } from "react-bootstrap";
+import { useSprints } from "../../../Hooks/useSprints";
 
 type ICardListTareas = {
 	tarea: ITarea;
@@ -10,6 +11,7 @@ type ICardListTareas = {
 
 export const CardListTareas: FC<ICardListTareas> = ({ tarea, handleOpenModalEdit }) => {
 	const { eliminarTarea } = useTareas();
+	const { sprints } = useSprints();
 
 	const eliminarTareaById = () => {
 		eliminarTarea(tarea.id!);
@@ -19,6 +21,9 @@ export const CardListTareas: FC<ICardListTareas> = ({ tarea, handleOpenModalEdit
 		handleOpenModalEdit(tarea);
 	};
 
+	//todo: manejar que cuando se seleccione el sprint, la tarea se asigne a ese sprint y se elimine del backlog
+	const handleChangeSprint = (e: React.ChangeEvent<HTMLSelectElement>) => {};
+
 	return (
 		<Card className="shadow-sm background-color">
 			<Card.Body className="d-flex justify-content-between align-items-center flex-wrap flex-md-nowrap">
@@ -27,20 +32,39 @@ export const CardListTareas: FC<ICardListTareas> = ({ tarea, handleOpenModalEdit
 					Descripción: <br /> {tarea.descripcion}
 				</Card.Text>
 				<Card.Text className="mb-0">
-					Fecha Límite: <br /> <strong>{tarea.fechaLimite}</strong>
+					Fecha Límite: <br />
+					{tarea.fechaLimite}
 				</Card.Text>
 				<Card.Text className="mb-0">
-					Estado: <br /> <strong>{tarea.estado}</strong>
+					Estado: <br /> {tarea.estado}
 				</Card.Text>
 
 				<Form.Group>
-					<Form.Label className="mb-1">Seleccionar Sprint</Form.Label>
+					{/* <Form.Label className="mb-1">Seleccionar Sprint</Form.Label> */}
 					<Form.Select
 						className="mb-2"
-						// value={tarea.estado}
 						size="sm"
+						onChange={handleChangeSprint}
+						defaultValue=""
 					>
-						<option>Backlog</option>
+						<option
+							disabled
+							value=""
+						>
+							Seleccione el sprint
+						</option>
+						{sprints.length > 0 ? (
+							sprints.map((sprint) => (
+								<option
+									key={sprint.id}
+									value={sprint.id}
+								>
+									{sprint.nombre}
+								</option>
+							))
+						) : (
+							<option>No hay Sprints</option>
+						)}
 					</Form.Select>
 				</Form.Group>
 

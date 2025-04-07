@@ -24,14 +24,14 @@ export const CardListSprints: FC<ICardListSprints> = ({ sprint, handleOpenModalE
 		handleOpenModalEdit(sprint);
 	};
 
-	const handleSelect = () => {
+	const handleSelectSprint = () => {
 		setSprintActivo(sprint);
-		navigate(`/sprints/${sprint.id}`);
+		navigate(`/sprint`);
 	};
 
 	return (
 		<Card className={styles["card-container"]}>
-			<div onClick={handleSelect}>
+			<div onClick={handleSelectSprint}>
 				<Card.Header>
 					<Card.Title className="fs-4 fw-bold mb-3 text-center ">
 						{sprint.nombre}

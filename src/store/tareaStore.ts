@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { ITarea } from "../types/iTarea";
+import { ITarea } from "../types/ITarea";
 
 interface ITareaStore {
 	tareas: ITarea[];

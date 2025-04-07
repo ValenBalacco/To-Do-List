@@ -60,7 +60,7 @@ export const Viewsprints = () => {
 				) : (
 					<Row>
 						<Col>
-							<h4 className="text-muted">No hay sprints en el Backlog</h4>
+							<h4 className="text-muted">No hay sprints</h4>
 						</Col>
 					</Row>
 				)}

@@ -1,5 +1,5 @@
 import axios from "axios";
-import { ITarea } from "../types/iTarea";
+import { ITarea } from "../types/ITarea";
 
 const API_URL = "http://localhost:3000/tareas";
 

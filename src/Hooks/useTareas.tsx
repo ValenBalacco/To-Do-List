@@ -1,8 +1,8 @@
 import { useShallow } from "zustand/shallow";
 import { tareaStore } from "../Store/tareaStore";
 import { editarTarea, eliminarTareaPorId, getAllTareas, postNuevaTarea } from "../http/tareas";
-import { ITarea } from "../types/iTarea";
 import Swal from "sweetalert2";
+import { ITarea } from "../types/ITarea";
 
 export const useTareas = () => {
 	const { tareas, setArrayTareas, agregarNuevaTarea, eliminarUnaTarea, editarUnaTarea } =

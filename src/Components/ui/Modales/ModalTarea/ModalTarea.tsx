@@ -1,7 +1,7 @@
 import { ChangeEvent, FC, FormEvent, useEffect, useState } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
 import { tareaStore } from "../../../../Store/tareaStore";
-import { ITarea } from "../../../../types/iTarea";
+import { ITarea } from "../../../../types/ITarea";
 import { useTareas } from "../../../../Hooks/useTareas";
 
 type IModalTarea = {

@@ -15,10 +15,9 @@ export const BacklogScreen = () => {
 				>
 					<Viewsprints />
 				</Col>
-
 				<Col
 					md={8}
-					lg={9}
+					lg={8}
 				>
 					<ViewTareas />
 				</Col>
