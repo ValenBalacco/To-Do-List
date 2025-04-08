@@ -1,125 +1,87 @@
-import { ChangeEvent, FC, FormEvent, useEffect, useState } from "react";
-import { Modal, Button, Form } from "react-bootstrap";
-import { tareaStore } from "../../../../Store/tareaStore";
-import { ITarea } from "../../../../types/iTarea";
-import { useTareas } from "../../../../Hooks/useTareas";
+import React, { useState } from "react";
 
-type IModalTarea = {
-	show: boolean;
-	handleCloseModal: VoidFunction;
-};
+interface Task {
+  id: string;
+  title: string;
+  description: string;
+  deadline: string;
+  status: string;
+}
 
-const initialState: ITarea = {
-	titulo: "",
-	descripcion: "",
-	fechaLimite: "",
-	estado: "Por hacer",
-};
+interface ModalTareaProps {
+  task: Task | null;
+  handleCloseModal: () => void;
+  handleSaveTask: (task: Task) => void;
+}
 
-export const ModalTarea: FC<IModalTarea> = ({ handleCloseModal, show }) => {
-	const tareaActiva = tareaStore((state) => state.tareaActiva);
-	const setTareaActiva = tareaStore((state) => state.setTareaActiva);
+export const ModalTarea: React.FC<ModalTareaProps> = ({
+  task,
+  handleCloseModal,
+  handleSaveTask,
+}) => {
+  const [title, setTitle] = useState(task?.title || "");
+  const [description, setDescription] = useState(task?.description || "");
+  const [deadline, setDeadline] = useState(task?.deadline || "");
+  const [status, setStatus] = useState(task?.status || "Backlog");
 
-	const { crearTarea, putTareaEditar } = useTareas();
+  const handleSave = () => {
+    if (!title.trim() || !deadline.trim()) {
+      alert("El título y la fecha límite son obligatorios.");
+      return;
+    }
+    handleSaveTask({
+      id: task?.id || Date.now().toString(),
+      title,
+      description,
+      deadline,
+      status,
+    });
+  };
 
-	const [formValues, setFormValues] = useState<ITarea>(initialState);
-
-	useEffect(() => {
-		if (tareaActiva) setFormValues(tareaActiva);
-		else setFormValues(initialState);
-	}, [tareaActiva]);
-
-	const handleChange = (
-		e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
-	) => {
-		const { name, value } = e.target;
-		setFormValues((prev) => ({ ...prev, [name]: value }));
-	};
-
-	const handleSubmit = (e: FormEvent) => {
-		e.preventDefault();
-		if (tareaActiva) {
-			putTareaEditar(formValues);
-		} else {
-			crearTarea({ ...formValues, id: Date.now().toString() });
-		}
-		setTareaActiva(null);
-		handleCloseModal();
-	};
-
-	return (
-		<Modal
-			show={show}
-			onHide={handleCloseModal}
-			centered
-		>
-			<Modal.Header closeButton>
-				<Modal.Title>{tareaActiva ? "Editar Tarea" : "Crear Tarea"}</Modal.Title>
-			</Modal.Header>
-			<Form onSubmit={handleSubmit}>
-				<Modal.Body>
-					<Form.Group className="mb-3">
-						<Form.Label>Título</Form.Label>
-						<Form.Control
-							type="text"
-							required
-							autoComplete="off"
-							name="titulo"
-							placeholder="Ingrese un título"
-							value={formValues.titulo}
-							onChange={handleChange}
-						/>
-					</Form.Group>
-					<Form.Group className="mb-3">
-						<Form.Label>Descripción</Form.Label>
-						<Form.Control
-							as="textarea"
-							required
-							name="descripcion"
-							placeholder="Ingrese una descripción"
-							value={formValues.descripcion}
-							onChange={handleChange}
-							rows={3}
-						/>
-					</Form.Group>
-					<Form.Group className="mb-3">
-						<Form.Label>Fecha Límite</Form.Label>
-						<Form.Control
-							type="date"
-							required
-							autoComplete="off"
-							name="fechaLimite"
-							value={formValues.fechaLimite}
-							onChange={handleChange}
-						/>
-					</Form.Group>
-					<Form.Select
-						aria-label="Seleccionar Estado"
-						name="estado"
-						onChange={handleChange}
-						value={formValues.estado}
-					>
-						<option value="Por Hacer">Por Hacer</option>
-						<option value="En Progreso">En Progreso</option>
-						<option value="Hecho">Hecho</option>
-					</Form.Select>
-					);
-				</Modal.Body>
-				<Modal.Footer>
-					<Button
-						variant="secondary"
-						onClick={handleCloseModal}
-					>
-						Cancelar
-					</Button>
-					<Button
-						variant="primary"
-						type="submit"
-					>
-						{tareaActiva ? "Editar Tarea" : "Crear Tarea"}
-					</Button>
-				</Modal.Footer>
-			</Form>
-		</Modal>
-	);
+  return (
+    <div className="modal fade show d-block" tabIndex={-1} role="dialog">
+      <div className="modal-dialog modal-dialog-centered" role="document">
+        <div className="modal-content shadow-lg">
+          <div className="modal-header bg-primary text-white">
+            <h5 className="modal-title">{task ? "Editar Tarea" : "Crear Tarea"}</h5>
+            <button type="button" className="btn-close" onClick={handleCloseModal}></button>
+          </div>
+          <div className="modal-body">
+            <input
+              type="text"
+              className="form-control mb-3"
+              placeholder="Título"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+            />
+            <textarea
+              className="form-control mb-3"
+              placeholder="Descripción"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+            />
+            <input
+              type="date"
+              className="form-control mb-3"
+              value={deadline}
+              onChange={(e) => setDeadline(e.target.value)}
+            />
+            <select className="form-select" value={status} onChange={(e) => setStatus(e.target.value)}>
+              <option value="Pendiente">Pendiente</option>
+              <option value="En Progreso">En Progreso</option>
+              <option value="Completado">Completado</option>
+            </select>
+          </div>
+          <div className="modal-footer">
+            <button type="button" className="btn btn-secondary" onClick={handleCloseModal}>
+              Cancelar
+            </button>
+            <button type="button" className="btn btn-primary" onClick={handleSave}>
+              Guardar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 };
