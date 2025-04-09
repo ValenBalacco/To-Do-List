@@ -1,57 +1,65 @@
 import { ChangeEvent, FC, FormEvent, useEffect, useState } from "react";
-import { ISprint } from "../../../../types/ISprint";
-import { sprintStore } from "../../../../Store/sprintStore";
-import { useSprints } from "../../../../Hooks/useSprints";
+import { Sprint } from "../../../../store/useStore";
 import { Button, Form, Modal } from "react-bootstrap";
+import Swal from "sweetalert2";
+import { v4 as uuidv4 } from "uuid";
 
-type IModalSprint = {
+type ModalSprintProps = {
 	show: boolean;
-	handleCloseModal: VoidFunction;
+	handleClose: VoidFunction;
+	sprintToEdit?: Sprint | null;
+	onSave: (sprint: Sprint) => void;
 };
 
-const initialState: ISprint = {
-	nombre: "",
-	fechaInicio: "",
-	fechaCierre: "",
-	tareas: [],
+const initialSprintState: Sprint = {
+	id: "",
+	name: "",
+	startDate: "",
+	endDate: "",
+	tasks: [],
 };
 
-export const ModalSprint: FC<IModalSprint> = ({ show, handleCloseModal }) => {
-	const sprintActivo = sprintStore((state) => state.sprintActivo);
-	const setSprintActivo = sprintStore((state) => state.setSprintActivo);
-
-	const { crearSprint, putEditarSprint } = useSprints();
-
-	const [formValues, setFormValues] = useState<ISprint>(initialState);
+export const ModalSprint: FC<ModalSprintProps> = ({ show, handleClose, sprintToEdit, onSave }) => {
+	const [formValues, setFormValues] = useState<Sprint>(initialSprintState);
 
 	useEffect(() => {
-		if (sprintActivo) setFormValues(sprintActivo);
-	}, [sprintActivo]);
+		if (sprintToEdit) {
+			setFormValues(sprintToEdit);
+		} else {
+			setFormValues({ ...initialSprintState, id: uuidv4() }); // Generar un nuevo ID para un nuevo sprint
+		}
+	}, [sprintToEdit]);
 
-	const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+	const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
 		const { name, value } = e.target;
-		setFormValues((prev) => ({ ...prev, [`${name}`]: value }));
+		setFormValues((prev) => ({ ...prev, [name]: value }));
 	};
 
 	const handleSubmit = (e: FormEvent) => {
 		e.preventDefault();
-		if (sprintActivo) {
-			putEditarSprint(formValues);
-		} else {
-			crearSprint({ ...formValues, id: Date.now().toString() });
+
+		// Validar campos obligatorios
+		if (!formValues.name.trim() || !formValues.startDate || !formValues.endDate) {
+			Swal.fire("Error", "Todos los campos son obligatorios.", "error");
+			return;
 		}
-		setSprintActivo(null);
-		handleCloseModal();
+
+		// Validar fechas
+		const startDate = new Date(formValues.startDate);
+		const endDate = new Date(formValues.endDate);
+		if (startDate > endDate) {
+			Swal.fire("Error", "La fecha de inicio no puede ser mayor que la fecha de cierre.", "error");
+			return;
+		}
+
+		onSave(formValues); // Guardar el sprint
+		handleClose(); // Cerrar el modal
 	};
 
 	return (
-		<Modal
-			show={show}
-			onHide={handleCloseModal}
-			centered
-		>
+		<Modal show={show} onHide={handleClose} centered>
 			<Modal.Header closeButton>
-				<Modal.Title>{sprintActivo ? "Editar Sprint" : "Crear Sprint"}</Modal.Title>
+				<Modal.Title>{sprintToEdit ? "Editar Sprint" : "Crear Sprint"}</Modal.Title>
 			</Modal.Header>
 			<Form onSubmit={handleSubmit}>
 				<Modal.Body>
@@ -59,51 +67,40 @@ export const ModalSprint: FC<IModalSprint> = ({ show, handleCloseModal }) => {
 						<Form.Label>Nombre</Form.Label>
 						<Form.Control
 							type="text"
-							required
-							autoComplete="off"
-							name="nombre"
-							placeholder="Ingrese un nombre"
-							value={formValues.nombre}
+							name="name"
+							value={formValues.name}
 							onChange={handleChange}
+							placeholder="Ingrese un nombre"
+							required
 						/>
 					</Form.Group>
-
 					<Form.Group className="mb-3">
 						<Form.Label>Fecha de Inicio</Form.Label>
 						<Form.Control
 							type="date"
-							required
-							autoComplete="off"
-							name="fechaInicio"
-							value={formValues.fechaInicio}
+							name="startDate"
+							value={formValues.startDate}
 							onChange={handleChange}
+							required
 						/>
 					</Form.Group>
-
 					<Form.Group className="mb-3">
 						<Form.Label>Fecha de Cierre</Form.Label>
 						<Form.Control
 							type="date"
-							required
-							autoComplete="off"
-							name="fechaCierre"
-							value={formValues.fechaCierre}
+							name="endDate"
+							value={formValues.endDate}
 							onChange={handleChange}
+							required
 						/>
 					</Form.Group>
 				</Modal.Body>
 				<Modal.Footer>
-					<Button
-						variant="secondary"
-						onClick={handleCloseModal}
-					>
+					<Button variant="secondary" onClick={handleClose}>
 						Cancelar
 					</Button>
-					<Button
-						variant="primary"
-						type="submit"
-					>
-						{sprintActivo ? "Editar Sprint" : "Crear Sprint"}
+					<Button variant="primary" type="submit">
+						{sprintToEdit ? "Guardar Cambios" : "Crear Sprint"}
 					</Button>
 				</Modal.Footer>
 			</Form>

@@ -62,25 +62,24 @@ export const BacklogScreen: React.FC<BacklogScreenProps> = ({ moveToSprint, spri
   };
 
   const handleDeleteTask = (id: string) => {
-    Swal.fire({
-      title: "¿Estás seguro?",
-      text: "No podrás revertir esta acción.",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#d33",
-      cancelButtonColor: "#3085d6",
-      confirmButtonText: "Sí, eliminar",
-    }).then((result) => {
-      if (result.isConfirmed) {
+    const taskElement = document.getElementById(`task-${id}`);
+    if (taskElement) {
+      taskElement.classList.add("removed");
+      setTimeout(() => {
         deleteTask(id);
         Swal.fire("Eliminado", "La tarea ha sido eliminada.", "success");
-      }
-    });
+      }, 500); // Match the duration of the fadeOut animation
+    }
   };
 
   const handleMoveToSprint = (task: Task, sprintId: string) => {
-    moveToSprint(task, sprintId);
-    Swal.fire("Tarea Movida", "La tarea ha sido movida al sprint.", "success");
+    if (!sprintId) {
+      Swal.fire("Error", "Por favor selecciona un sprint válido.", "error");
+      return;
+    }
+
+    moveToSprint(task, sprintId); // Call the store function to move the task
+    Swal.fire("Tarea Movida", "La tarea ha sido movida al sprint correctamente.", "success");
   };
 
   // Filter tasks to show only those with status "Backlog"
@@ -94,7 +93,11 @@ export const BacklogScreen: React.FC<BacklogScreenProps> = ({ moveToSprint, spri
       </button>
       <ul className="list-group">
         {backlogTasks.map((task) => (
-          <li key={task.id} className="list-group-item d-flex justify-content-between align-items-start shadow-sm rounded border border-primary">
+          <li
+            key={task.id}
+            id={`task-${task.id}`}
+            className="list-group-item d-flex justify-content-between align-items-start shadow-sm rounded border border-primary"
+          >
             <div>
               <h5 className="text-dark">{task.title}</h5>
               <p className="text-muted">{task.description}</p>

@@ -37,7 +37,13 @@ export const SprintsScreen: React.FC<SprintsScreenProps> = ({ sprintId, sprintNa
   };
 
   const handleDeleteTask = (id: string) => {
-    deleteTask(id);
+    const taskElement = document.getElementById(`task-${id}`);
+    if (taskElement) {
+      taskElement.classList.add("removed");
+      setTimeout(() => {
+        deleteTask(id);
+      }, 500); // Match the duration of the fadeOut animation
+    }
   };
 
   const handleChangeStatus = (task: Task, direction: "left" | "right") => {
@@ -64,6 +70,7 @@ export const SprintsScreen: React.FC<SprintsScreenProps> = ({ sprintId, sprintNa
               {tasksByStatus(status).map((task) => (
                 <li
                   key={task.id}
+                  id={`task-${task.id}`}
                   className="list-group-item d-flex justify-content-between align-items-center shadow-sm rounded border border-primary"
                 >
                   <div>

@@ -1,109 +1,95 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
+import { Sprint } from "./store/useStore";
 import { BacklogScreen as Backlog } from "./components/Screens/BacklogScreen/BacklogScreen";
-import { ModalGestionarSprint } from "./components/ui/ModalGestionarSprint/ModalGestionarSprint";
-import { SprintsScreen as Sprints } from "./components/Screens/SprintsScreen/SprintsScreen";
-import styles from "./App.module.css";
 import { ModalSprint } from "./components/ui/Modales/ModalSprint/ModalSprint";
-interface Sprint {
-  id: string;
-  name: string;
-  startDate: string;
-  endDate: string;
-  tasks: Task[]; // Add tasks to the Sprint interface
-}
-
-interface Task {
-  id: string;
-  name: string;
-}
+import { SprintsScreen as Sprints } from "./components/Screens/SprintsScreen/SprintsScreen";
+import { useStore } from "./store/useStore";
+import styles from "./App.module.css";
 
 function App() {
-  const [activeTab, setActiveTab] = useState("Backlog");
-  const [sprints, setSprints] = useState<Sprint[]>(() => {
-    try {
-      const savedSprints = localStorage.getItem("sprints");
-      return savedSprints ? JSON.parse(savedSprints) : [{ id: "1", name: "Sprint 1", startDate: "", endDate: "", tasks: [] }];
-    } catch {
-      return [{ id: "1", name: "Sprint 1", startDate: "", endDate: "", tasks: [] }];
-    }
-  });
-  const [openModalSprint, setOpenModalSprint] = useState(false);
-  const [sprintEditando, setSprintEditando] = useState<Sprint | null>(null);
+  const {
+    activeTab,
+    setActiveTab,
+    sprints,
+    fetchSprints,
+    addSprint,
+    updateSprint,
+    deleteSprint,
+    moveTaskToSprint,
+    updateSprintTasks,
+  } = useStore();
+
+  const [showModalSprint, setShowModalSprint] = useState(false);
+  const [sprintToEdit, setSprintToEdit] = useState<Sprint | null>(null);
 
   useEffect(() => {
-    localStorage.setItem("sprints", JSON.stringify(sprints));
-  }, [sprints]);
+    fetchSprints();
+  }, [fetchSprints]);
 
   const handleTabChange = (tab: string) => {
-    setActiveTab(tab); // Cambiamos la pestaña activa
+    setActiveTab(tab);
   };
 
   const handleOpenModalCreate = () => {
-    setSprintEditando(null);
-    setOpenModalSprint(true);
+    setSprintToEdit(null);
+    setShowModalSprint(true);
   };
 
   const handleOpenModalEdit = (sprint: Sprint) => {
-    setSprintEditando(sprint);
-    setOpenModalSprint(true);
+    setSprintToEdit(sprint);
+    setShowModalSprint(true);
   };
 
   const handleCloseModal = () => {
-    setOpenModalSprint(false);
+    setShowModalSprint(false);
+    setSprintToEdit(null);
   };
 
-  const handleSaveSprint = (sprint: Sprint) => {
-    if (sprintEditando) {
-      setSprints((prev) =>
-        prev.map((s) => (s.id === sprint.id ? sprint : s))
-      );
-      Swal.fire("Sprint Actualizado", "El sprint ha sido actualizado correctamente.", "success");
-    } else {
-      setSprints((prev) => [...prev, { ...sprint, id: Date.now().toString(), tasks: [] }]);
-      Swal.fire("Sprint Creado", "El sprint ha sido creado correctamente.", "success");
-    }
-    setOpenModalSprint(false);
-  };
-
-  const handleDeleteSprint = (id: string) => {
-    Swal.fire({
-      title: "¿Estás seguro?",
-      text: "No podrás revertir esta acción.",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#d33",
-      cancelButtonColor: "#3085d6",
-      confirmButtonText: "Sí, eliminar",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        setSprints((prev) => prev.filter((sprint) => sprint.id !== id));
-        if (activeTab === id) {
-          setActiveTab("Backlog");
-        }
-        Swal.fire("Eliminado", "El sprint ha sido eliminado.", "success");
+  const handleSaveSprint = async (sprint: Sprint) => {
+    try {
+      if (sprintToEdit) {
+        await updateSprint(sprint);
+        Swal.fire("Sprint Actualizado", "El sprint ha sido actualizado correctamente.", "success");
+      } else {
+        await addSprint(sprint);
+        Swal.fire("Sprint Creado", "El sprint ha sido creado correctamente.", "success");
       }
-    });
+      fetchSprints();
+      handleCloseModal();
+    } catch (error) {
+      console.error("Error guardando sprint:", error);
+      Swal.fire("Error", "No se pudo guardar el sprint. Inténtalo de nuevo.", "error");
+    }
   };
 
-  const handleMoveToSprint = (task: Task, sprintId: string) => {
-    setSprints((prev) =>
-      prev.map((sprint) =>
-        sprint.id === sprintId
-          ? { ...sprint, tasks: [...(sprint.tasks || []), task] }
-          : sprint
-      )
-    );
-    Swal.fire("Tarea Movida", `La tarea ha sido movida al sprint correctamente.`, "success");
+  const handleDeleteSprint = async (id: string) => {
+    try {
+      await deleteSprint(id);
+      Swal.fire("Eliminado", "El sprint ha sido eliminado.", "success");
+      if (activeTab === id) {
+        setActiveTab("Backlog");
+      }
+    } catch (error) {
+      console.error("Error eliminando sprint:", error);
+      Swal.fire("Error", "No se pudo eliminar el sprint. Inténtalo de nuevo.", "error");
+    }
   };
 
-  const updateSprintTasks = (sprintId: string, updatedTasks: Task[]) => {
-    setSprints((prev) =>
-      prev.map((sprint) =>
-        sprint.id === sprintId ? { ...sprint, tasks: updatedTasks } : sprint
-      )
-    );
+  const handleMoveToSprint = (task: any, sprintId: string) => {
+    moveTaskToSprint(task, sprintId)
+      .then(() => {
+        Swal.fire("Tarea Movida", "La tarea ha sido movida al sprint correctamente.", "success");
+      })
+      .catch((error: unknown) => {
+        console.error("Error moving task to sprint:", error);
+        Swal.fire("Error", "No se pudo mover la tarea al sprint. Inténtalo de nuevo.", "error");
+      });
   };
+
+  if (!sprints.length) {
+    return <div className="text-center mt-5">Cargando datos...</div>;
+  }
 
   return (
     <div className={styles.appContainer}>
@@ -155,13 +141,12 @@ function App() {
           )}
         </main>
       </div>
-      {openModalSprint && (
-        <ModalGestionarSprint
-          sprint={sprintEditando}
-          handleCloseModal={handleCloseModal}
-          handleSaveSprint={handleSaveSprint}
-        />
-      )}
+      <ModalSprint
+        show={showModalSprint}
+        handleClose={handleCloseModal}
+        sprintToEdit={sprintToEdit}
+        onSave={handleSaveSprint}
+      />
     </div>
   );
 }
