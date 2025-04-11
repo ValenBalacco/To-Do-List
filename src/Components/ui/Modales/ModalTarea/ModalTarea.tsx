@@ -103,7 +103,6 @@ export const ModalTarea: FC<IModalTarea> = ({ handleCloseModal, show }) => {
 						<option value="En Progreso">En Progreso</option>
 						<option value="Hecho">Hecho</option>
 					</Form.Select>
-					);
 				</Modal.Body>
 				<Modal.Footer>
 					<Button
