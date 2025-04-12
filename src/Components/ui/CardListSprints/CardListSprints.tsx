@@ -4,7 +4,7 @@ import { useSprints } from "../../../Hooks/useSprints";
 import { ISprint } from "../../../types/ISprint";
 import styles from "./CardListSprints.module.css";
 import { sprintStore } from "../../../Store/sprintStore";
-import { useNavigate } from "react-router";
+import { useNavigate } from "react-router-dom";
 
 type ICardListSprints = {
 	sprint: ISprint;
