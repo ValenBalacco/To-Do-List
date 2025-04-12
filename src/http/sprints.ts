@@ -1,7 +1,7 @@
 import axios from "axios";
 import { ISprint } from "../types/ISprint";
 
-const API_URL = "http://localhost:3000/sprints";
+const API_URL = `${import.meta.env.VITE_API_URL}/sprints`;
 
 export const getAllSprints = async () => {
 	try {
@@ -13,32 +13,32 @@ export const getAllSprints = async () => {
 };
 
 export const postNuevoSprint = async (nuevoSprint: ISprint) => {
-    try {
-        const response = await axios.post<ISprint>(API_URL, {
-            ...nuevoSprint,
-        });
-        return response.data;
-    } catch (error) {
-        console.log(error);
-    }
-}
+	try {
+		const response = await axios.post<ISprint>(API_URL, {
+			...nuevoSprint,
+		});
+		return response.data;
+	} catch (error) {
+		console.log(error);
+	}
+};
 
 export const editarSprint = async (sprintActualizado: ISprint) => {
-    try {
-        const response = await axios.put<ISprint>(`${API_URL}/${sprintActualizado.id}`, {
-            ...sprintActualizado,
-        });
-        return response.data;
-    } catch (error) {
-        console.log(error);
-    }
-}
+	try {
+		const response = await axios.put<ISprint>(`${API_URL}/${sprintActualizado.id}`, {
+			...sprintActualizado,
+		});
+		return response.data;
+	} catch (error) {
+		console.log(error);
+	}
+};
 
 export const eliminarSprintPorId = async (idSprint: string) => {
-    try {
-        const response = await axios.delete<ISprint>(`${API_URL}/${idSprint}`);
-        return response.data;
-    } catch (error) {
-        console.log(error);
-    }
-}
+	try {
+		const response = await axios.delete<ISprint>(`${API_URL}/${idSprint}`);
+		return response.data;
+	} catch (error) {
+		console.log(error);
+	}
+};

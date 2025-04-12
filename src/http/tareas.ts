@@ -1,7 +1,7 @@
 import axios from "axios";
 import { ITarea } from "../types/ITarea";
 
-const API_URL = "http://localhost:3000/tareas";
+const API_URL = `${import.meta.env.VITE_API_URL}/tareas`;
 
 export const getAllTareas = async () => {
 	try {
