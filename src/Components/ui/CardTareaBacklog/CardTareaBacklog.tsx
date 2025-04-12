@@ -49,7 +49,6 @@ export const CardTareaBacklog: FC<ICardListTareas> = ({ tarea, handleOpenModalEd
 						size="sm"
 						onChange={handleChangeSprint}
 						value={tarea.sprintId || ""}
-						defaultValue=""
 					>
 						<option
 							disabled
