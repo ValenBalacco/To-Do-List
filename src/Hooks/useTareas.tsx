@@ -32,7 +32,7 @@ export const useTareas = () => {
 		}
 	};
 
-	const putTareaEditar = async (tareaEditada: ITarea) => {
+	const putEditarTarea = async (tareaEditada: ITarea) => {
 		const estadoPrevio = tareas.find((el) => el.id === tareaEditada.id);
 		editarUnaTarea(tareaEditada);
 		try {
@@ -41,6 +41,22 @@ export const useTareas = () => {
 		} catch (error) {
 			if (estadoPrevio) editarUnaTarea(estadoPrevio);
 			console.log("Algo salió mal al editar la tarea");
+		}
+	};
+
+	const cambiarSprintDeTarea = async (tareaId: string, sprintId: string) => {
+		const estadoPrevio = tareas.find((el) => el.id === tareaId);
+		if (!estadoPrevio) return;
+
+		editarUnaTarea({ ...estadoPrevio, sprintId: sprintId });
+
+		const tareaActualizada = { ...estadoPrevio, sprintId: sprintId };
+
+		try {
+			await editarTarea(tareaActualizada);
+		} catch (error) {
+			editarUnaTarea(estadoPrevio);
+			console.log(error);
 		}
 	};
 
@@ -53,7 +69,6 @@ export const useTareas = () => {
 			showCancelButton: true,
 			confirmButtonText: "Sí, eliminar",
 			cancelButtonText: "Cancelar",
-			
 		});
 		if (!confirm.isConfirmed) return;
 		eliminarUnaTarea(idTarea);
@@ -69,7 +84,8 @@ export const useTareas = () => {
 	return {
 		getTareas,
 		crearTarea,
-		putTareaEditar,
+		putEditarTarea,
+		cambiarSprintDeTarea,
 		eliminarTarea,
 		tareas,
 	};

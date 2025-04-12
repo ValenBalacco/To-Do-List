@@ -9,9 +9,10 @@ type ICardListTareas = {
 	handleOpenModalEdit: (tarea: ITarea) => void;
 };
 
-export const CardListTareas: FC<ICardListTareas> = ({ tarea, handleOpenModalEdit }) => {
+export const CardTareaBacklog: FC<ICardListTareas> = ({ tarea, handleOpenModalEdit }) => {
 	const { eliminarTarea } = useTareas();
 	const { sprints } = useSprints();
+	const { cambiarSprintDeTarea } = useTareas();
 
 	const eliminarTareaById = () => {
 		eliminarTarea(tarea.id!);
@@ -21,8 +22,10 @@ export const CardListTareas: FC<ICardListTareas> = ({ tarea, handleOpenModalEdit
 		handleOpenModalEdit(tarea);
 	};
 
-	//todo: manejar que cuando se seleccione el sprint, la tarea se asigne a ese sprint y se elimine del backlog
-	const handleChangeSprint = (e: React.ChangeEvent<HTMLSelectElement>) => {};
+	const handleChangeSprint = (e: React.ChangeEvent<HTMLSelectElement>) => {
+		const nuevoSprint = e.target.value;
+		cambiarSprintDeTarea(tarea.id!, nuevoSprint);
+	};
 
 	return (
 		<Card className="shadow-sm background-color">
@@ -45,6 +48,7 @@ export const CardListTareas: FC<ICardListTareas> = ({ tarea, handleOpenModalEdit
 						className="mb-2"
 						size="sm"
 						onChange={handleChangeSprint}
+						value={tarea.sprintId || ""}
 						defaultValue=""
 					>
 						<option

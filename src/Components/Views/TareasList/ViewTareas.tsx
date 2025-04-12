@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { useTareas } from "../../../Hooks/useTareas";
 import { tareaStore } from "../../../Store/tareaStore";
-import { CardListTareas } from "../../ui/CardListTareas/CardListTareas";
 import { ModalTarea } from "../../ui/Modales/ModalTarea/ModalTarea";
 import { ITarea } from "../../../types/ITarea";
 import { Container, Row, Col, Button } from "react-bootstrap";
+import { CardTareaBacklog } from "../../ui/CardTareaBacklog/CardTareaBacklog";
 
 export const ViewTareas = () => {
 	const { getTareas, tareas } = useTareas();
@@ -26,6 +26,8 @@ export const ViewTareas = () => {
 		setOpenModalTarea(false);
 	};
 
+	const tareasFiltradas = tareas.filter((tarea) => !tarea.sprintId);
+
 	return (
 		<>
 			<Container className="mt-4">
@@ -43,14 +45,14 @@ export const ViewTareas = () => {
 					</Col>
 				</Row>
 
-				{tareas.length > 0 ? (
-					tareas.map((el, index) => (
+				{tareasFiltradas.length > 0 ? (
+					tareasFiltradas.map((el, index) => (
 						<Row
 							key={index}
 							className="mb-3"
 						>
 							<Col>
-								<CardListTareas
+								<CardTareaBacklog
 									tarea={el}
 									handleOpenModalEdit={handleOpenModalEdit}
 								/>

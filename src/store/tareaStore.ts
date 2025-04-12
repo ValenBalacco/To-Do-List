@@ -9,6 +9,7 @@ interface ITareaStore {
 	agregarNuevaTarea: (nuevaTarea: ITarea) => void;
 	editarUnaTarea: (tareaActualizada: ITarea) => void;
 	eliminarUnaTarea: (idTarea: string) => void;
+	cambiarSprintDeTarea: (tareaId: string, sprintId: string) => void;
 }
 
 export const tareaStore = create<ITareaStore>((set) => ({
@@ -32,6 +33,14 @@ export const tareaStore = create<ITareaStore>((set) => ({
 			);
 			return { tareas: arregloTareas };
 		}),
+	//cambiar el sprint de una tarea
+	cambiarSprintDeTarea: (tareaId, sprintId) => {
+		set((state) => ({
+			tareas: state.tareas.map((tarea) =>
+				tarea.id === tareaId ? { ...tarea, sprintId: sprintId } : tarea
+			),
+		}));
+	},
 
 	//eliminar una tarea
 	eliminarUnaTarea: (idTarea) =>

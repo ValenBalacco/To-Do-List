@@ -13,14 +13,14 @@ const initialState: ITarea = {
 	titulo: "",
 	descripcion: "",
 	fechaLimite: "",
-	estado: "Por hacer",
+	estado: "Por Hacer",
 };
 
 export const ModalTarea: FC<IModalTarea> = ({ handleCloseModal, show }) => {
 	const tareaActiva = tareaStore((state) => state.tareaActiva);
 	const setTareaActiva = tareaStore((state) => state.setTareaActiva);
 
-	const { crearTarea, putTareaEditar } = useTareas();
+	const { crearTarea, putEditarTarea } = useTareas();
 
 	const [formValues, setFormValues] = useState<ITarea>(initialState);
 
@@ -39,7 +39,7 @@ export const ModalTarea: FC<IModalTarea> = ({ handleCloseModal, show }) => {
 	const handleSubmit = (e: FormEvent) => {
 		e.preventDefault();
 		if (tareaActiva) {
-			putTareaEditar(formValues);
+			putEditarTarea(formValues);
 		} else {
 			crearTarea({ ...formValues, id: Date.now().toString() });
 		}
@@ -101,7 +101,7 @@ export const ModalTarea: FC<IModalTarea> = ({ handleCloseModal, show }) => {
 					>
 						<option value="Por Hacer">Por Hacer</option>
 						<option value="En Progreso">En Progreso</option>
-						<option value="Hecho">Hecho</option>
+						<option value="Hecha">Hecha</option>
 					</Form.Select>
 				</Modal.Body>
 				<Modal.Footer>

@@ -1,68 +1,97 @@
 {
-	"tareas": [
-		{
-			"id": "1743884452304",
-			"titulo": "asdfadsf",
-			"descripcion": "345345",
-			"fechaLimite": "34543-05-31"
-		},
-		{
-			"id": "1743884452303",
-			"titulo": "34534534",
-			"descripcion": "345345",
-			"fechaLimite": "34543-05-31"
-		},
-
-		{
-			"id": "1743892009095",
-			"titulo": "wer",
-			"descripcion": "234",
-			"fechaLimite": "0234-04-23"
-		},
-		{
-			"id": "1743893248434",
-			"titulo": "234",
-			"descripcion": "234",
-			"fechaLimite": "2025-04-10"
-		},
-		{
-			"titulo": "estado",
-			"descripcion": "estadod",
-			"fechaLimite": "0004-04-23",
-			"estado": "Hecho",
-			"id": "1743978360061"
-		}
-	],
-	"sprints": [
-		{
-			"id": "1743892897066",
-			"nombre": "coso",
-			"fechaInicio": "2025-04-10",
-			"fechaCierre": "2025-04-16",
-			"tareas": [
-				{
-					"titulo": "2343444",
-					"descripcion": "234",
-					"fechaLimite": "2025-04-09",
-					"estado": "Hecho",
-					"id": "1743891951920"
-				}
-			]
-		},
-		{
-			"id": "1743893094457",
-			"nombre": "Loca",
-			"fechaInicio": "2025-04-16",
-			"fechaCierre": "2025-04-17",
-			"tareas": [
-				{
-					"id": "1743978492568",
-					"titulo": "456",
-					"descripcion": "e6456",
-					"fechaLimite": "6456-05-04",
-					"estado": "En Progreso"
-				}
-			]
-		}
-	]
+  "tareas": [
+    {
+      "titulo": "estado",
+      "descripcion": "estadod",
+      "fechaLimite": "0004-04-23",
+      "estado": "Hecha",
+      "id": "1743978360061",
+      "sprintId": "1743892897066"
+    },
+    {
+      "id": "1744410319480",
+      "titulo": "tyu",
+      "descripcion": "tyu",
+      "fechaLimite": "2025-04-16",
+      "estado": "En Progreso",
+      "sprintId": "1743893094457"
+    },
+    {
+      "id": "1744415440165",
+      "titulo": "ertert",
+      "descripcion": "ertetert",
+      "fechaLimite": "2025-04-10",
+      "estado": "Por hacer",
+      "sprintId": "1743893094457"
+    },
+    {
+      "id": "1744415451800",
+      "titulo": "345345",
+      "descripcion": "345345",
+      "fechaLimite": "2025-04-04",
+      "estado": "En Progreso",
+      "sprintId": "1743892897066"
+    },
+    {
+      "id": "1744415468822",
+      "titulo": "Hecha",
+      "descripcion": "345345",
+      "fechaLimite": "2025-04-23",
+      "estado": "Hecho",
+      "sprintId": "1743892897066"
+    },
+    {
+      "id": "1744417138051",
+      "titulo": "345",
+      "descripcion": "345",
+      "fechaLimite": "275760-05-31",
+      "estado": "En Progreso"
+    },
+    {
+      "titulo": "prueba",
+      "descripcion": "234",
+      "fechaLimite": "2025-04-17",
+      "estado": "En Progreso",
+      "id": "1744418992348",
+      "sprintId": "1743892897066"
+    },
+    {
+      "titulo": "porhacer",
+      "descripcion": "234",
+      "fechaLimite": "2025-04-15",
+      "estado": "Por Hacer",
+      "id": "1744420454901",
+      "sprintId": "1743892897066"
+    },
+    {
+      "titulo": "hecha",
+      "descripcion": "234",
+      "fechaLimite": "2025-04-10",
+      "estado": "Hecha",
+      "id": "1744421215660",
+      "sprintId": "1743892897066"
+    },
+    {
+      "titulo": "hecha2",
+      "descripcion": "234",
+      "fechaLimite": "2025-04-23",
+      "estado": "Hecha",
+      "id": "1744421329777",
+      "sprintId": "1743892897066"
+    }
+  ],
+  "sprints": [
+    {
+      "id": "1743892897066",
+      "nombre": "coso",
+      "fechaInicio": "2025-04-10",
+      "fechaCierre": "2025-04-16"
+    },
+    {
+      "id": "1743893094457",
+      "nombre": "Loca",
+      "fechaInicio": "2025-04-16",
+      "fechaCierre": "2025-04-17"
+    }
+  ]
 }
