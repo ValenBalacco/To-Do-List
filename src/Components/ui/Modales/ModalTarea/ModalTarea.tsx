@@ -43,7 +43,6 @@ export const ModalTarea: FC<IModalTarea> = ({ handleCloseModal, show }) => {
 		} else {
 			crearTarea({ ...formValues, id: Date.now().toString() });
 		}
-		setTareaActiva(null);
 		handleCloseModal();
 	};
 

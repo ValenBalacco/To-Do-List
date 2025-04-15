@@ -4,13 +4,40 @@ import { useTareas } from "../../../Hooks/useTareas";
 import { useSprints } from "../../../Hooks/useSprints";
 import { ITarea, TareaEstado } from "../../../types/ITarea";
 import { CardTareaSprint } from "../../ui/CardTareaSprint/CardTareaSprint";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { tareaStore } from "../../../Store/tareaStore";
 import { ModalTarea } from "../../ui/Modales/ModalTarea/ModalTarea";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import { getAllTareas } from "../../../http/tareas";
 
 export const SprintScreen = () => {
 	const { tareas } = useTareas();
-	const { sprintActivo } = useSprints();
+	const { sprintActivo, sprints, setSprintActivo } = useSprints();
+	const [searchParams] = useSearchParams();
+	const navigate = useNavigate();
+
+	useEffect(() => {
+		const sprintId = searchParams.get("sprintId");
+
+		if (!sprints.length) return;
+
+		if (sprintId) {
+			const foundSprint = sprints.find((sprint) => sprint.id === sprintId);
+			if (foundSprint) {
+				setSprintActivo(foundSprint);
+			} else {
+				navigate("/");
+			}
+		} else {
+			setSprintActivo(null);
+		}
+	}, [searchParams, sprints, setSprintActivo]);
+
+	useEffect(() => {
+		if (sprintActivo?.id) {
+			getAllTareas();
+		}
+	}, [sprintActivo]);
 
 	const filtroPorEstados = (filtroEstado: TareaEstado) =>
 		tareas.filter(

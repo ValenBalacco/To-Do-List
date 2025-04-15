@@ -13,7 +13,6 @@ const initialState: ISprint = {
 	nombre: "",
 	fechaInicio: "",
 	fechaCierre: "",
-	tareas: [],
 };
 
 export const ModalSprint: FC<IModalSprint> = ({ show, handleCloseModal }) => {
@@ -40,7 +39,6 @@ export const ModalSprint: FC<IModalSprint> = ({ show, handleCloseModal }) => {
 		} else {
 			crearSprint({ ...formValues, id: Date.now().toString() });
 		}
-		setSprintActivo(null);
 		handleCloseModal();
 	};
 

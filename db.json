@@ -37,7 +37,8 @@
       "titulo": "345",
       "descripcion": "345",
       "fechaLimite": "275760-05-31",
-      "estado": "En Progreso"
+      "estado": "Por Hacer",
+      "sprintId": "1743892897066"
     },
     {
       "titulo": "prueba2",
@@ -78,6 +79,29 @@
       "estado": "En Progreso",
       "id": "1744423771588",
       "sprintId": "1743893094457"
+    },
+    {
+      "id": "1744679620449",
+      "titulo": "567",
+      "descripcion": "567",
+      "fechaLimite": "2025-04-04",
+      "estado": "Por Hacer",
+      "sprintId": "1743893094457"
+    },
+    {
+      "titulo": "567",
+      "descripcion": "567",
+      "fechaLimite": "7567-06-05",
+      "estado": "Hecha",
+      "id": "1744679643417",
+      "sprintId": "1743893094457"
+    },
+    {
+      "id": "1744679788674",
+      "titulo": "567",
+      "descripcion": "567",
+      "fechaLimite": "7567-06-05",
+      "estado": "En Progreso"
     }
   ],
   "sprints": [

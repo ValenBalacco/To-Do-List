@@ -13,6 +13,7 @@ interface ITareaStore {
 }
 
 export const tareaStore = create<ITareaStore>((set) => ({
+	
 	tareas: [],
 	tareaActiva: null,
 

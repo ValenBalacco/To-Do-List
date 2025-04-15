@@ -3,8 +3,8 @@ import { Card, Button } from "react-bootstrap";
 import { useSprints } from "../../../Hooks/useSprints";
 import { ISprint } from "../../../types/ISprint";
 import styles from "./CardListSprints.module.css";
-import { sprintStore } from "../../../Store/sprintStore";
-import { useNavigate } from "react-router-dom";
+// import { sprintStore } from "../../../Store/sprintStore";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 type ICardListSprints = {
 	sprint: ISprint;
@@ -13,8 +13,9 @@ type ICardListSprints = {
 
 export const CardListSprints: FC<ICardListSprints> = ({ sprint, handleOpenModalEdit }) => {
 	const { eliminarSprint } = useSprints();
-	const setSprintActivo = sprintStore((state) => state.setSprintActivo);
+	// const setSprintActivo = sprintStore((state) => state.setSprintActivo);
 	const navigate = useNavigate();
+	const [searchParams] = useSearchParams();
 
 	const eliminarSprintById = () => {
 		eliminarSprint(sprint.id!);
@@ -25,8 +26,8 @@ export const CardListSprints: FC<ICardListSprints> = ({ sprint, handleOpenModalE
 	};
 
 	const handleSelectSprint = () => {
-		setSprintActivo(sprint);
-		navigate(`/sprint`);
+		searchParams.set("sprintId", sprint.id!);
+		navigate(`/sprint?${searchParams.toString()}`);
 	};
 
 	return (
