@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { Container, Row, Col, Button } from "react-bootstrap";
-import { sprintStore } from "../../../Store/sprintStore";
+import { useSprints } from "../../../hooks/useSprint";
+import { sprintStore } from "../../../store/sprintStore";
 import { ISprint } from "../../../types/ISprint";
-import { useSprints } from "../../../Hooks/useSprints";
 import { CardListSprints } from "../../ui/CardListSprints/CardListSprints";
-import { ModalSprint } from "../../ui/Modales/ModalSprint/ModalSprint";
+import { ModalSprint } from "../../ui/Modales/ModalSprint";
 
 export const Viewsprints = () => {
 	const { getSprints, sprints } = useSprints();
@@ -23,13 +23,25 @@ export const Viewsprints = () => {
 	};
 
 	const handleCloseModal = () => {
+		setSprintActivo(null);
 		setOpenModalSprint(false);
 	};
 
 	return (
 		<>
-			<Container className="mt-4">
-				<Row className="align-items-center mb-3">
+			<Container
+				className="mt-4 ocultar-scroll"
+				style={{
+					height: "88vh",
+					overflow: "auto",
+				}}
+			>
+				<Row
+					className="align-items-center mb-3"
+					style={{
+						position: "sticky",
+					}}
+				>
 					<Col>
 						<h2>Sprints</h2>
 					</Col>

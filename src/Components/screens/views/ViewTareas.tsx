@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import { useTareas } from "../../../Hooks/useTareas";
-import { tareaStore } from "../../../Store/tareaStore";
-import { ModalTarea } from "../../ui/Modales/ModalTarea/ModalTarea";
+import { useTareas } from "../../../hooks/useTarea";
+import { tareaStore } from "../../../store/tareaStore";
 import { ITarea } from "../../../types/ITarea";
-import { Container, Row, Col, Button } from "react-bootstrap";
-import { CardTareaBacklog } from "../../ui/CardTareaBacklog/CardTareaBacklog";
+import { Button, Col, Container, Row } from "react-bootstrap";
+import { CardTareaBacklog } from "../../ui/CardListSprints/CardTareaBacklog";
+import { ModalTarea } from "../../ui/Modales/ModalTarea";
 
 export const ViewTareas = () => {
 	const { getTareas, tareas } = useTareas();
@@ -23,14 +23,13 @@ export const ViewTareas = () => {
 	};
 
 	const handleCloseModal = () => {
+		setTareaActiva(null);
 		setOpenModalTarea(false);
 	};
 
-	const tareasFiltradas = tareas.filter((tarea) => !tarea.sprintId);
-
 	return (
 		<>
-			<Container className="mt-4">
+			<Container className="mt-4 overflow-scroll">
 				<Row className="align-items-center mb-3">
 					<Col>
 						<h2>Tareas en el Backlog</h2>
@@ -45,8 +44,8 @@ export const ViewTareas = () => {
 					</Col>
 				</Row>
 
-				{tareasFiltradas.length > 0 ? (
-					tareasFiltradas.map((el, index) => (
+				{tareas.length > 0 ? (
+					tareas.map((el, index) => (
 						<Row
 							key={index}
 							className="mb-3"

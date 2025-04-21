@@ -1,8 +1,14 @@
 import { useShallow } from "zustand/shallow";
 import Swal from "sweetalert2";
-import { sprintStore } from "../Store/sprintStore";
-import { editarSprint, eliminarSprintPorId, getAllSprints, postNuevoSprint } from "../http/sprints";
+import { sprintStore } from "../store/sprintStore";
+
 import { ISprint } from "../types/ISprint";
+import {
+	createSprintController,
+	deleteSprintController,
+	getAllSprintsController,
+	updateSprintController,
+} from "../data/controllers/sprintController";
 
 export const useSprints = () => {
 	const {
@@ -26,14 +32,14 @@ export const useSprints = () => {
 	);
 
 	const getSprints = async () => {
-		const data = await getAllSprints();
+		const data = await getAllSprintsController();
 		if (data) setArraySprints(data);
 	};
 
 	const crearSprint = async (nuevoSprint: ISprint) => {
 		agregarNuevoSprint(nuevoSprint);
 		try {
-			await postNuevoSprint(nuevoSprint);
+			await createSprintController(nuevoSprint);
 			Swal.fire("Éxito", "Sprint creado correctamente", "success");
 		} catch (error) {
 			eliminarUnSprint(nuevoSprint.id!);
@@ -45,7 +51,7 @@ export const useSprints = () => {
 		const estadoPrevio = sprints.find((el) => el.id === sprintEditado.id);
 		editarUnSprint(sprintEditado);
 		try {
-			await editarSprint(sprintEditado);
+			await updateSprintController(sprintEditado);
 			Swal.fire("Éxito", "Tarea actualizada correctamente", "success");
 		} catch (error) {
 			if (estadoPrevio) editarUnSprint(estadoPrevio);
@@ -66,7 +72,7 @@ export const useSprints = () => {
 		if (!confirm.isConfirmed) return;
 		eliminarUnSprint(idSprint);
 		try {
-			await eliminarSprintPorId(idSprint);
+			await deleteSprintController(idSprint);
 			Swal.fire("Eliminado", "Sprint eliminado correctamente", "success");
 		} catch (error) {
 			if (estadoPrevio) agregarNuevoSprint(estadoPrevio);

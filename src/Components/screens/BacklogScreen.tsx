@@ -1,6 +1,6 @@
 import { Col, Container, Row } from "react-bootstrap";
-import { Viewsprints } from "../../Views/SprintList/ViewSprints";
-import { ViewTareas } from "../../Views/TareasList/ViewTareas";
+import { Viewsprints } from "./views/ViewSprints";
+import { ViewTareas } from "./views/ViewTareas";
 
 export const BacklogScreen = () => {
 	return (

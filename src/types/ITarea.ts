@@ -6,5 +6,4 @@ export interface ITarea {
 	descripcion: string;
 	fechaLimite: string;
 	estado: TareaEstado;
-	sprintId?: string;
 }

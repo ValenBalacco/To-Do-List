@@ -1,42 +1,14 @@
 import axios from "axios";
 import { ITarea } from "../types/ITarea";
+import { IBacklog } from "../types/IBacklog";
 
-const API_URL = "http://localhost:3000/tareas";
+const API_URL = `${import.meta.env.VITE_API_URL}/backlog`;
 
-export const getAllTareas = async () => {
+export const putTareasBacklog = async (tareas: ITarea[]) => {
 	try {
-		const response = await axios.get<ITarea[]>(API_URL);
-		return response.data;
-	} catch (error) {
-		console.log(error);
-	}
-};
-
-export const postNuevaTarea = async (nuevaTarea: ITarea) => {
-	try {
-		const response = await axios.post<ITarea>(API_URL, {
-			...nuevaTarea,
+		const response = await axios.put<IBacklog>(API_URL, {
+			tareas: tareas,
 		});
-		return response.data;
-	} catch (error) {
-		console.log(error);
-	}
-};
-
-export const editarTarea = async (tareaActualizada: ITarea) => {
-	try {
-		const response = await axios.put<ITarea>(`${API_URL}/${tareaActualizada.id}`, {
-			...tareaActualizada,
-		});
-		return response.data;
-	} catch (error) {
-		console.log(error);
-	}
-};
-
-export const eliminarTareaPorId = async (idTarea: string) => {
-	try {
-		const response = await axios.delete<ITarea>(`${API_URL}/${idTarea}`);
 		return response.data;
 	} catch (error) {
 		console.log(error);

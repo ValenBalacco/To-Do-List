@@ -1,8 +1,8 @@
 import { ChangeEvent, FC, FormEvent, useEffect, useState } from "react";
-import { ISprint } from "../../../../types/ISprint";
-import { sprintStore } from "../../../../Store/sprintStore";
-import { useSprints } from "../../../../Hooks/useSprints";
+import { ISprint } from "../../../types/ISprint";
+import { sprintStore } from "../../../store/sprintStore";
 import { Button, Form, Modal } from "react-bootstrap";
+import { useSprints } from "../../../hooks/useSprint";
 
 type IModalSprint = {
 	show: boolean;
@@ -18,7 +18,6 @@ const initialState: ISprint = {
 
 export const ModalSprint: FC<IModalSprint> = ({ show, handleCloseModal }) => {
 	const sprintActivo = sprintStore((state) => state.sprintActivo);
-	const setSprintActivo = sprintStore((state) => state.setSprintActivo);
 
 	const { crearSprint, putEditarSprint } = useSprints();
 
@@ -40,7 +39,6 @@ export const ModalSprint: FC<IModalSprint> = ({ show, handleCloseModal }) => {
 		} else {
 			crearSprint({ ...formValues, id: Date.now().toString() });
 		}
-		setSprintActivo(null);
 		handleCloseModal();
 	};
 

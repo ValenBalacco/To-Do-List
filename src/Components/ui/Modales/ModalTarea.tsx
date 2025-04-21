@@ -1,8 +1,8 @@
 import { ChangeEvent, FC, FormEvent, useEffect, useState } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
-import { tareaStore } from "../../../../Store/tareaStore";
-import { ITarea } from "../../../../types/ITarea";
-import { useTareas } from "../../../../Hooks/useTareas";
+import { tareaStore } from "../../../store/tareaStore";
+import { ITarea } from "../../../types/ITarea";
+import { useTareas } from "../../../hooks/useTarea";
 
 type IModalTarea = {
 	show: boolean;
@@ -43,7 +43,6 @@ export const ModalTarea: FC<IModalTarea> = ({ handleCloseModal, show }) => {
 		} else {
 			crearTarea({ ...formValues, id: Date.now().toString() });
 		}
-		setTareaActiva(null);
 		handleCloseModal();
 	};
 
@@ -93,16 +92,6 @@ export const ModalTarea: FC<IModalTarea> = ({ handleCloseModal, show }) => {
 							onChange={handleChange}
 						/>
 					</Form.Group>
-					<Form.Select
-						aria-label="Seleccionar Estado"
-						name="estado"
-						onChange={handleChange}
-						value={formValues.estado}
-					>
-						<option value="Por Hacer">Por Hacer</option>
-						<option value="En Progreso">En Progreso</option>
-						<option value="Hecha">Hecha</option>
-					</Form.Select>
 				</Modal.Body>
 				<Modal.Footer>
 					<Button
