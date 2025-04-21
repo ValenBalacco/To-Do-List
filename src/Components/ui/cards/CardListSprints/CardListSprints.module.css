@@ -1,0 +1,23 @@
+.card-container {
+	width: 100%;
+	height: 95%;
+	border: 1px solid black;
+	cursor: pointer;
+	transition: transform 0.3 ease;
+	display: flex;
+}
+.card-container:hover {
+	transform: scale(1.01);
+}
+
+.card-body {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+.button-container {
+	display: flex;
+	gap: 10px;
+	margin-top: 10px;
+}

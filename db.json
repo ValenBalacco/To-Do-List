@@ -1,14 +1,6 @@
 {
   "backlog": {
-    "tareas": [
-      {
-        "titulo": "456",
-        "descripcion": "456",
-        "fechaLimite": "6456-05-04",
-        "estado": "Por Hacer",
-        "id": "1745202717445"
-      }
-    ]
+    "tareas": []
   },
   "sprintList": {
     "sprints": [
@@ -21,15 +13,28 @@
             "titulo": "costio",
             "descripcion": "234",
             "fechaLimite": "2025-04-24",
-            "estado": "Por Hacer",
+            "estado": "Hecha",
             "id": "1745199953388"
           },
           {
             "titulo": "cosa9",
             "descripcion": "2349",
             "fechaLimite": "2025-05-09",
-            "estado": "Por Hacer",
+            "estado": {
+              "titulo": "cosa9",
+              "descripcion": "2349",
+              "fechaLimite": "2025-05-09",
+              "estado": "Por Hacer",
+              "id": "1745200977071"
+            },
             "id": "1745200977071"
+          },
+          {
+            "titulo": "456",
+            "descripcion": "456",
+            "fechaLimite": "6456-05-04",
+            "estado": "Por Hacer",
+            "id": "1745202717445"
           }
         ],
         "id": "1745105246730"

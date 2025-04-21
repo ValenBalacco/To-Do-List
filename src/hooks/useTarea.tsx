@@ -1,6 +1,6 @@
 import { useShallow } from "zustand/shallow";
 import Swal from "sweetalert2";
-import { ITarea } from "../types/ITarea";
+import { ITarea, TareaEstado } from "../types/ITarea";
 import { tareaStore } from "../store/tareaStore";
 import {
 	editarTareaController,
@@ -133,6 +133,14 @@ export const useTareas = () => {
 		}
 	};
 
+	const cambiarEstadoDeTarea = async (tarea: ITarea, nuevoEstado: TareaEstado) => {
+		const tareaActualizada = { ...tarea, estado: nuevoEstado };
+		const tareaModificada = await putEditarTarea(tareaActualizada);
+		if (tareaModificada) {
+			Swal.fire("Exito", "El estado fue modificado correctamente", "success");
+		}
+	};
+
 	return {
 		getTareas,
 		crearTarea,
@@ -140,5 +148,6 @@ export const useTareas = () => {
 		eliminarTarea,
 		tareas,
 		moverTareaDeSprint,
+		cambiarEstadoDeTarea,
 	};
 };
