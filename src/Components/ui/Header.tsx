@@ -21,7 +21,7 @@ export const Header = () => {
 						Volver al Backlog
 					</Link>
 				)}
-				<div className="d-flex justify-content-center">
+				<div className="d-flex flex-grow-1 justify-content-center">
 					<h2 className="m-0">{ventana ? sprintActivo?.nombre : "Backlog"}</h2>
 				</div>
 				<div></div>

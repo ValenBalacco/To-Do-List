@@ -3,7 +3,7 @@ import { useTareas } from "../../../hooks/useTarea";
 import { tareaStore } from "../../../store/tareaStore";
 import { ITarea } from "../../../types/ITarea";
 import { Button, Col, Container, Row } from "react-bootstrap";
-import { CardTareaBacklog } from "../../ui/CardListSprints/CardTareaBacklog";
+import { CardTareaBacklog } from "../../ui/cards/CardTareaBacklog";
 import { ModalTarea } from "../../ui/Modales/ModalTarea";
 
 export const ViewTareas = () => {

@@ -3,7 +3,7 @@ import { Container, Row, Col, Button } from "react-bootstrap";
 import { useSprints } from "../../../hooks/useSprint";
 import { sprintStore } from "../../../store/sprintStore";
 import { ISprint } from "../../../types/ISprint";
-import { CardListSprints } from "../../ui/CardListSprints/CardListSprints";
+import { CardListSprints } from "../../ui/cards/CardListSprints/CardListSprints";
 import { ModalSprint } from "../../ui/Modales/ModalSprint";
 
 export const Viewsprints = () => {

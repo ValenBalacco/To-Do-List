@@ -7,7 +7,7 @@ import { tareaStore } from "../../store/tareaStore";
 import { ModalTarea } from "../ui/Modales/ModalTarea";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { getAllTareasController } from "../../data/controllers/backlogController";
-import { CardTareaSprint } from "../ui/CardListSprints/CardTareaSprint";
+import { CardTareaSprint } from "../ui/cards/CardTareaSprint";
 
 export const SprintScreen = () => {
 	const { sprintActivo, sprints, setSprintActivo } = useSprints();
