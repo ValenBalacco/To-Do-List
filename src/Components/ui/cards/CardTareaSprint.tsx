@@ -6,8 +6,8 @@ import { tareaStore } from "../../../store/tareaStore";
 import { putSprintList } from "../../../http/sprints";
 import { sprintStore } from "../../../store/sprintStore";
 import { Button, Card } from "react-bootstrap";
-import { ITarea } from "../../../types/ITarea";
-import { FaArrowRight } from "react-icons/fa";
+import { ITarea, TareaEstado } from "../../../types/ITarea";
+import { FaArrowRight, FaArrowLeft } from "react-icons/fa";
 import { useTareas } from "../../../hooks/useTarea";
 
 type ICardTareaSprint = {
@@ -59,17 +59,17 @@ export const CardTareaSprint: FC<ICardTareaSprint> = ({ tarea, handleOpenModalEd
 		handleOpenModalEdit(tarea);
 	};
 
-	const visionDeFlechaDeEstado = () => {
-		if (tarea.estado === "Por Hacer") {
-			return "En Progreso";
-		} else if (tarea.estado === "En Progreso") {
-			return "Hecha";
-		} else {
-			return null;
+	const handleChangeEstado = (str: "menos" | "mas") => {
+		const estados: TareaEstado[] = ["Por Hacer", "En Progreso", "Hecha"];
+		const actualIndex = estados.indexOf(tarea.estado);
+		let siguiente;
+		if (str === "mas") {
+			siguiente = estados[actualIndex + 1];
+		} else if (str === "menos") {
+			siguiente = estados[actualIndex - 1];
 		}
+		cambiarEstadoDeTarea(tarea, siguiente!);
 	};
-
-	const mostrarFlecha = visionDeFlechaDeEstado() !== null;
 
 	return (
 		<Card className="shadow-sm background-color">
@@ -83,6 +83,14 @@ export const CardTareaSprint: FC<ICardTareaSprint> = ({ tarea, handleOpenModalEd
 				</Card.Text>
 
 				<div className="d-flex gap-2 mt-3 mt-md-0 justify-content-center flex-wrap flex-md-nowrap">
+					{tarea.estado !== "Por Hacer" && (
+						<Button
+							variant="outline-info"
+							onClick={() => handleChangeEstado("menos")}
+						>
+							<FaArrowLeft />
+						</Button>
+					)}
 					<Button
 						variant="outline-warning"
 						onClick={editarTarea}
@@ -95,10 +103,11 @@ export const CardTareaSprint: FC<ICardTareaSprint> = ({ tarea, handleOpenModalEd
 					>
 						Eliminar
 					</Button>
-					{mostrarFlecha && (
+
+					{tarea.estado !== "Hecha" && (
 						<Button
 							variant="outline-info"
-							onClick={() => "coso"}
+							onClick={() => handleChangeEstado("mas")}
 						>
 							<FaArrowRight />
 						</Button>

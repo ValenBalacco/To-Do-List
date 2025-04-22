@@ -5,45 +5,25 @@
   "sprintList": {
     "sprints": [
       {
-        "nombre": "pruebasprint",
-        "fechaInicio": "2025-04-22",
-        "fechaCierre": "2025-04-23",
+        "nombre": "333333466",
+        "fechaInicio": "3333-03-31",
+        "fechaCierre": "0003-03-31",
         "tareas": [
           {
-            "titulo": "costio",
+            "titulo": "coso",
             "descripcion": "234",
-            "fechaLimite": "2025-04-24",
-            "estado": "Hecha",
-            "id": "1745199953388"
-          },
-          {
-            "titulo": "cosa9",
-            "descripcion": "2349",
-            "fechaLimite": "2025-05-09",
-            "estado": {
-              "titulo": "cosa9",
-              "descripcion": "2349",
-              "fechaLimite": "2025-05-09",
-              "estado": "Por Hacer",
-              "id": "1745200977071"
-            },
-            "id": "1745200977071"
-          },
-          {
-            "titulo": "456",
-            "descripcion": "456",
-            "fechaLimite": "6456-05-04",
+            "fechaLimite": "0234-04-23",
             "estado": "Por Hacer",
-            "id": "1745202717445"
+            "id": "1745347198421"
+          },
+          {
+            "titulo": "567",
+            "descripcion": "567",
+            "fechaLimite": "7567-06-05",
+            "estado": "Por Hacer",
+            "id": "1745348161919"
           }
         ],
-        "id": "1745105246730"
-      },
-      {
-        "nombre": "45656546",
-        "fechaInicio": "2025-05-09",
-        "fechaCierre": "2025-04-26",
-        "tareas": [],
         "id": "1745203177992"
       }
     ]
