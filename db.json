@@ -13,18 +13,46 @@
             "titulo": "coso",
             "descripcion": "234",
             "fechaLimite": "0234-04-23",
-            "estado": "Por Hacer",
+            "estado": "En Progreso",
             "id": "1745347198421"
           },
           {
             "titulo": "567",
             "descripcion": "567",
-            "fechaLimite": "7567-06-05",
+            "fechaLimite": "2003-06-05",
             "estado": "Por Hacer",
             "id": "1745348161919"
+          },
+          {
+            "titulo": "tarea",
+            "descripcion": "prueba tarea",
+            "fechaLimite": "2025-04-29",
+            "estado": "Hecha",
+            "id": "1745374117442"
+          },
+          {
+            "titulo": "asdasdadsa",
+            "descripcion": "asdasda",
+            "fechaLimite": "2025-04-23",
+            "estado": "En Progreso",
+            "id": "1745374696486"
           }
         ],
         "id": "1745203177992"
+      },
+      {
+        "nombre": "asdasdad",
+        "fechaInicio": "2025-04-30",
+        "fechaCierre": "2025-04-22",
+        "tareas": [],
+        "id": "1745375121958"
+      },
+      {
+        "nombre": "asdasda",
+        "fechaInicio": "2025-04-22",
+        "fechaCierre": "2025-04-23",
+        "tareas": [],
+        "id": "1745375632633"
       }
     ]
   }

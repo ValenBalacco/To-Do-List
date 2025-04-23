@@ -47,8 +47,18 @@ export const ModalSprint: FC<ModalSprintProps> = ({ show, handleClose, sprintToE
 		// Validar fechas
 		const startDate = new Date(formValues.startDate);
 		const endDate = new Date(formValues.endDate);
+
+		if (isNaN(startDate.getTime()) || isNaN(endDate.getTime())) {
+			Swal.fire("Error", "Las fechas proporcionadas no son válidas.", "error");
+			return;
+		}
+
 		if (startDate > endDate) {
 			Swal.fire("Error", "La fecha de inicio no puede ser mayor que la fecha de cierre.", "error");
+			setFormValues((prev) => ({
+				...prev,
+				endDate: "", // Clear the invalid end date
+			}));
 			return;
 		}
 

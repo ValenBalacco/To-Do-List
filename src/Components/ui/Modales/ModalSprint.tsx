@@ -3,6 +3,7 @@ import { ISprint } from "../../../types/ISprint";
 import { sprintStore } from "../../../store/sprintStore";
 import { Button, Form, Modal } from "react-bootstrap";
 import { useSprints } from "../../../hooks/useSprint";
+import Swal from "sweetalert2";
 
 type IModalSprint = {
 	show: boolean;
@@ -34,6 +35,21 @@ export const ModalSprint: FC<IModalSprint> = ({ show, handleCloseModal }) => {
 
 	const handleSubmit = (e: FormEvent) => {
 		e.preventDefault();
+
+		
+		const fechaInicio = new Date(formValues.fechaInicio);
+		const fechaCierre = new Date(formValues.fechaCierre);
+
+		if (isNaN(fechaInicio.getTime()) || isNaN(fechaCierre.getTime())) {
+			Swal.fire("Error", "Las fechas proporcionadas no son válidas.", "error");
+			return;
+		}
+
+		if (fechaCierre < fechaInicio) {
+			Swal.fire("Error", "La fecha de cierre no puede ser menor a la fecha de inicio.", "error");
+			return;
+		}
+
 		if (sprintActivo) {
 			putEditarSprint(formValues);
 		} else {
