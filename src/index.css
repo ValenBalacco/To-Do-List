@@ -1,8 +1,10 @@
-* {
-	padding: 0;
+html,
+body,
+#root {
+	height: 100%;
 	margin: 0;
-}
-
-html {
-	background-color: #ccc;
+	padding: 0;
+	::-webkit-scrollbar {
+		display: none;
+	}
 }

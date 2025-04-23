@@ -1,67 +1,31 @@
 {
-  "tasks": [
-    {
-      "id": "1744170524269",
-      "title": "asdasdasd",
-      "description": "asdasdasd",
-      "deadline": "2025-04-14",
-      "status": "Backlog"
-    }
-  ],
-  "sprints": [
-    {
-      "id": "1",
-      "name": "Sprint 1",
-      "startDate": "2023-12-01",
-      "endDate": "2023-12-15",
-      "tasks": [
-        {
-          "id": "1744170162350",
-          "title": "qweqwe",
-          "description": "qweqweqwe",
-          "deadline": "2025-04-21",
-          "status": "Backlog"
-        },
-        {
-          "id": "1744170162350",
-          "title": "qweqwe",
-          "description": "qweqweqwe",
-          "deadline": "2025-04-21",
-          "status": "Backlog"
-        },
-        {
-          "id": "1744170414307",
-          "title": "asdasda",
-          "description": "asdasdaa",
-          "deadline": "2025-04-16",
-          "status": "Completado"
-        },
-        {
-          "id": "1744171093829",
-          "title": "zxsafssd",
-          "description": "asdadsasd",
-          "deadline": "2025-04-15",
-          "status": "Pendiente"
-        }
-      ],
-      "nombre": "Sprint 2",
-      "fechaInicio": "2025-04-09",
-      "fechaCierre": "2025-04-21"
-    },
-    {
-      "id": "a81d1595-65e8-480b-93aa-fbdbed3a65ec",
-      "name": "asdasdad",
-      "startDate": "2025-04-09",
-      "endDate": "2025-04-13",
-      "tasks": [
-        {
-          "id": "1744172073133",
-          "title": "asdasd",
-          "description": "asdasd",
-          "deadline": "2025-04-07",
-          "status": "En Progreso"
-        }
-      ]
-    }
-  ]
+  "backlog": {
+    "tareas": []
+  },
+  "sprintList": {
+    "sprints": [
+      {
+        "nombre": "333333466",
+        "fechaInicio": "3333-03-31",
+        "fechaCierre": "0003-03-31",
+        "tareas": [
+          {
+            "titulo": "coso",
+            "descripcion": "234",
+            "fechaLimite": "0234-04-23",
+            "estado": "Por Hacer",
+            "id": "1745347198421"
+          },
+          {
+            "titulo": "567",
+            "descripcion": "567",
+            "fechaLimite": "7567-06-05",
+            "estado": "Por Hacer",
+            "id": "1745348161919"
+          }
+        ],
+        "id": "1745203177992"
+      }
+    ]
+  }
 }

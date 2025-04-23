@@ -1,42 +1,65 @@
 import { create } from "zustand";
-import { ITarea } from "../types/iTarea";
+import { ITarea } from "../types/ITarea";
 
 interface ITareaStore {
 	tareas: ITarea[];
 	tareaActiva: ITarea | null;
-	setTareaActiva: (tareaActiva: ITarea | null) => void;
+	setTareas: (tareas: ITarea[]) => void;
+	setTareaActiva: (tareaActivaIn: ITarea | null) => void;
 	setArrayTareas: (arrayDeTareas: ITarea[]) => void;
 	agregarNuevaTarea: (nuevaTarea: ITarea) => void;
-	editarUnaTarea: (tareaActualizada: ITarea) => void;
+	editarUnaTarea: (tareaEditada: ITarea) => void;
 	eliminarUnaTarea: (idTarea: string) => void;
+	moverTareaDeSprint: (idTarea: string, idSprint: string, tarea: ITarea) => void;
 }
 
 export const tareaStore = create<ITareaStore>((set) => ({
 	tareas: [],
+	setTareas: (tareas) => set({ tareas }),
 	tareaActiva: null,
 
-	//setear la tarea activa
-	setTareaActiva: (tareaActivaIn) => set(() => ({ tareaActiva: tareaActivaIn })),
+	//Setear la tarea activa
+	setTareaActiva: (tareaActivaIn) =>
+		set(() => ({
+			tareaActiva: tareaActivaIn,
+		})),
 
-	//agregar array de tareas
-	setArrayTareas: (arrayDeTareas) => set(() => ({ tareas: arrayDeTareas })),
+	//Agregar el array de tareas
+	setArrayTareas: (arrayDeTareas) =>
+		set(() => ({
+			tareas: arrayDeTareas,
+		})),
 
-	//agregar nueva tarea
-	agregarNuevaTarea: (nuevaTarea) => set((state) => ({ tareas: [...state.tareas, nuevaTarea] })),
+	//Agregar nueva Tarea
+	agregarNuevaTarea: (nuevaTarea) =>
+		set((state) => ({
+			tareas: [...state.tareas, nuevaTarea],
+		})),
 
-	//editar una tarea
+	//Editar una Tarea
 	editarUnaTarea: (tareaEditada) =>
 		set((state) => {
 			const arregloTareas = state.tareas.map((tarea) =>
-				tarea.id === tareaEditada.id ? { ...tarea, ...tareaEditada } : tarea
+				tarea.id === tareaEditada.id
+					? {
+							...tarea,
+							...tareaEditada,
+					  }
+					: tarea
 			);
 			return { tareas: arregloTareas };
 		}),
 
-	//eliminar una tarea
+	//Eliminar una tarea segun su ID
 	eliminarUnaTarea: (idTarea) =>
-		set((state) => {
-			const arregloTareas = state.tareas.filter((tarea) => tarea.id !== idTarea);
-			return { tareas: arregloTareas };
-		}),
+		set((state) => ({
+			tareas: state.tareas.filter((tarea) => tarea.id !== idTarea),
+		})),
+
+	//Mover una tarea del sprint
+	moverTareaDeSprint: (idTarea, idSprint, tarea) => {
+		set((state) => ({
+			tareas: state.tareas.filter((t) => t.id !== idTarea),
+		}));
+	},
 }));
