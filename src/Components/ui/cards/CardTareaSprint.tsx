@@ -9,6 +9,7 @@ import { Button, Card, Modal } from "react-bootstrap";
 import { ITarea, TareaEstado } from "../../../types/ITarea";
 import { FaArrowRight, FaArrowLeft, FaEdit, FaTrash, FaEye } from "react-icons/fa";
 import { useTareas } from "../../../hooks/useTarea";
+import { TbSend } from "react-icons/tb";
 
 type ICardTareaSprint = {
 	tarea: ITarea;
@@ -97,7 +98,7 @@ export const CardTareaSprint: FC<ICardTareaSprint> = ({ tarea, handleOpenModalEd
 							variant="outline-secondary"
 							onClick={() => moverTareaAlBacklog(tarea)}
 						>
-							Mover al Backlog
+							Backlog <TbSend />
 						</Button>
 						<Button
 							variant="outline-warning"

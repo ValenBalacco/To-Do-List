@@ -3,7 +3,6 @@ import Swal from "sweetalert2";
 import { ITarea, TareaEstado } from "../types/ITarea";
 import { tareaStore } from "../store/tareaStore";
 import {
-	editarTareaController,
 	eliminarTareaController,
 	getAllTareasController,
 	postNuevaTareaController,
@@ -20,7 +19,6 @@ export const useTareas = () => {
 		setArrayTareas,
 		agregarNuevaTarea,
 		eliminarUnaTarea,
-		editarUnaTarea,
 		moverTareaDeSprint: moverTareaEnStore,
 	} = tareaStore(
 		useShallow((state) => ({
