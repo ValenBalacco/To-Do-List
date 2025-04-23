@@ -135,10 +135,37 @@ export const useTareas = () => {
 
 	const cambiarEstadoDeTarea = async (tarea: ITarea, nuevoEstado: TareaEstado) => {
 		const tareaActualizada = { ...tarea, estado: nuevoEstado };
-		const tareaModificada = await putEditarTarea(tareaActualizada);
-		if (tareaModificada) {
-			Swal.fire("Exito", "El estado fue modificado correctamente", "success");
-		}
+		await putEditarTarea(tareaActualizada);
+	};
+
+	const moverTareaAlBacklog = async (tarea: ITarea) => {
+		const sprints = await getAllSprintsController();
+		if (!sprints) return;
+
+		//Encontrar el sprint que contenga la tarea con su id
+		const sprintEncontrado = sprints.find((sprint) =>
+			sprint.tareas.some((t) => t.id === tarea.id)
+		);
+		if (!sprintEncontrado) return;
+
+		//Eliminar la tarea del srprint
+		const nuevoSprint = sprints.map((sprint) =>
+			sprint.id === sprintEncontrado.id
+				? { ...sprint, tareas: sprint.tareas.filter((t) => t.id !== tarea.id) }
+				: sprint
+		);
+
+		//Agregar la tarea al backlog
+		const backlog = await getAllTareasController();
+		if (!backlog) return;
+
+		const nuevoBacklog = [...backlog, { ...tarea, estado: "Por Hacer" as TareaEstado }];
+
+		await putSprintList(nuevoSprint);
+		await putTareasBacklog(nuevoBacklog);
+
+		tareaStore.setState({ tareas: nuevoBacklog });
+		sprintStore.setState({ sprints: nuevoSprint });
 	};
 
 	return {
@@ -149,5 +176,6 @@ export const useTareas = () => {
 		tareas,
 		moverTareaDeSprint,
 		cambiarEstadoDeTarea,
+		moverTareaAlBacklog,
 	};
 };

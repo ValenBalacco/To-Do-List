@@ -7,7 +7,7 @@ import { putSprintList } from "../../../http/sprints";
 import { sprintStore } from "../../../store/sprintStore";
 import { Button, Card, Modal } from "react-bootstrap";
 import { ITarea, TareaEstado } from "../../../types/ITarea";
-import { FaArrowRight, FaArrowLeft } from "react-icons/fa";
+import { FaArrowRight, FaArrowLeft, FaEdit, FaTrash, FaEye } from "react-icons/fa";
 import { useTareas } from "../../../hooks/useTarea";
 
 type ICardTareaSprint = {
@@ -16,9 +16,8 @@ type ICardTareaSprint = {
 };
 
 export const CardTareaSprint: FC<ICardTareaSprint> = ({ tarea, handleOpenModalEdit }) => {
-	const { cambiarEstadoDeTarea } = useTareas();
+	const { cambiarEstadoDeTarea, moverTareaAlBacklog } = useTareas();
 
-	
 	const [showModal, setShowModal] = useState(false);
 
 	const eliminarTareaById = async () => {
@@ -29,21 +28,17 @@ export const CardTareaSprint: FC<ICardTareaSprint> = ({ tarea, handleOpenModalEd
 
 		if (!tareasBacklog || !sprints) return;
 
-		
 		const tareaEnBacklog = tareasBacklog.find((t) => t.id === tarea.id);
 		if (tareaEnBacklog) {
-			
 			const nuevasTareasBacklog = tareasBacklog.filter((t) => t.id !== tarea.id);
 			await putTareasBacklog(nuevasTareasBacklog);
 			tareaStore.setState({ tareas: nuevasTareasBacklog });
 		}
 
-		
 		const tareaEnSprint = sprints.find((sprint) =>
 			sprint.tareas.some((t) => t.id === tarea.id)
 		);
 		if (tareaEnSprint) {
-			
 			const nuevosSprints = sprints.map((sprint) => {
 				if (sprint.id === tareaEnSprint.id) {
 					return {
@@ -99,22 +94,28 @@ export const CardTareaSprint: FC<ICardTareaSprint> = ({ tarea, handleOpenModalEd
 							</Button>
 						)}
 						<Button
+							variant="outline-secondary"
+							onClick={() => moverTareaAlBacklog(tarea)}
+						>
+							Mover al Backlog
+						</Button>
+						<Button
 							variant="outline-warning"
 							onClick={editarTarea}
 						>
-							Editar
+							<FaEdit />
 						</Button>
 						<Button
 							variant="outline-danger"
 							onClick={eliminarTareaById}
 						>
-							Eliminar
+							<FaTrash />
 						</Button>
 						<Button
 							variant="outline-primary"
 							onClick={handleShowModal}
 						>
-							Ver
+							<FaEye />
 						</Button>
 						{tarea.estado !== "Hecha" && (
 							<Button
@@ -128,19 +129,33 @@ export const CardTareaSprint: FC<ICardTareaSprint> = ({ tarea, handleOpenModalEd
 				</Card.Body>
 			</Card>
 
-			
-			<Modal show={showModal} onHide={handleCloseModal} centered>
+			<Modal
+				show={showModal}
+				onHide={handleCloseModal}
+				centered
+			>
 				<Modal.Header closeButton>
 					<Modal.Title>Detalles de la Tarea</Modal.Title>
 				</Modal.Header>
 				<Modal.Body>
-					<p><strong>Título:</strong> {tarea.titulo}</p>
-					<p><strong>Descripción:</strong> {tarea.descripcion}</p>
-					<p><strong>Fecha Límite:</strong> {tarea.fechaLimite}</p>
-					<p><strong>Estado:</strong> {tarea.estado}</p>
+					<p>
+						<strong>Título:</strong> {tarea.titulo}
+					</p>
+					<p>
+						<strong>Descripción:</strong> {tarea.descripcion}
+					</p>
+					<p>
+						<strong>Fecha Límite:</strong> {tarea.fechaLimite}
+					</p>
+					<p>
+						<strong>Estado:</strong> {tarea.estado}
+					</p>
 				</Modal.Body>
 				<Modal.Footer>
-					<Button variant="secondary" onClick={handleCloseModal}>
+					<Button
+						variant="secondary"
+						onClick={handleCloseModal}
+					>
 						Cerrar
 					</Button>
 				</Modal.Footer>

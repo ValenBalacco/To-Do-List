@@ -7,6 +7,13 @@
         "fechaLimite": "2025-04-30",
         "estado": "Por Hacer",
         "id": "1745380906159"
+      },
+      {
+        "titulo": "567",
+        "descripcion": "567",
+        "fechaLimite": "2003-06-05",
+        "estado": "Por Hacer",
+        "id": "1745348161919"
       }
     ]
   },
@@ -21,15 +28,8 @@
             "titulo": "coso",
             "descripcion": "234",
             "fechaLimite": "0234-04-23",
-            "estado": "En Progreso",
-            "id": "1745347198421"
-          },
-          {
-            "titulo": "567",
-            "descripcion": "567",
-            "fechaLimite": "2003-06-05",
             "estado": "Por Hacer",
-            "id": "1745348161919"
+            "id": "1745347198421"
           },
           {
             "titulo": "tarea",
@@ -42,7 +42,7 @@
             "titulo": "asdasdadsa",
             "descripcion": "asdasda",
             "fechaLimite": "2025-04-23",
-            "estado": "En Progreso",
+            "estado": "Hecha",
             "id": "1745374696486"
           }
         ],
