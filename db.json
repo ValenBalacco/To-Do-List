@@ -1,6 +1,14 @@
 {
   "backlog": {
-    "tareas": []
+    "tareas": [
+      {
+        "titulo": "asdasdads",
+        "descripcion": "asdasdasd",
+        "fechaLimite": "2025-04-30",
+        "estado": "Por Hacer",
+        "id": "1745380906159"
+      }
+    ]
   },
   "sprintList": {
     "sprints": [
