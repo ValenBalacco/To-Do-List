@@ -38,7 +38,7 @@ Pasos para ejecutar el proyecto localmente:
 
 3. Corre el JSON-Server:
     ```bash
-    npm run bdDev
+    npm run dbDev
     ```
 4. Ejecuta el proyecto:
     ```bash
