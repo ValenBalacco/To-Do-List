@@ -2,18 +2,11 @@
   "backlog": {
     "tareas": [
       {
-        "titulo": "asdasdads",
-        "descripcion": "asdasdasd",
-        "fechaLimite": "2025-04-30",
+        "titulo": "aaaaaaaaaaaa",
+        "descripcion": "aaaaaaaaaaaaaaaaaaaaaaaa",
+        "fechaLimite": "2025-04-25",
         "estado": "Por Hacer",
-        "id": "1745380906159"
-      },
-      {
-        "titulo": "567",
-        "descripcion": "567",
-        "fechaLimite": "2003-06-05",
-        "estado": "Por Hacer",
-        "id": "1745348161919"
+        "id": "1745465240599"
       }
     ]
   },
@@ -25,25 +18,11 @@
         "fechaCierre": "0003-03-31",
         "tareas": [
           {
-            "titulo": "coso",
-            "descripcion": "234",
-            "fechaLimite": "0234-04-23",
-            "estado": "En Progreso",
-            "id": "1745347198421"
-          },
-          {
-            "titulo": "tarea",
-            "descripcion": "prueba tarea",
-            "fechaLimite": "2025-04-29",
-            "estado": "Hecha",
-            "id": "1745374117442"
-          },
-          {
-            "titulo": "asdasdadsa",
-            "descripcion": "asdasda",
-            "fechaLimite": "2025-04-23",
-            "estado": "Hecha",
-            "id": "1745374696486"
+            "titulo": "aaaaaaaaaaa",
+            "descripcion": "aaaaaaaaaaaaaaaaaa",
+            "fechaLimite": "2025-04-30",
+            "estado": "Por Hacer",
+            "id": "1745465118561"
           }
         ],
         "id": "1745203177992"
@@ -54,13 +33,6 @@
         "fechaCierre": "2025-04-22",
         "tareas": [],
         "id": "1745375121958"
-      },
-      {
-        "nombre": "asdasda",
-        "fechaInicio": "2025-04-22",
-        "fechaCierre": "2025-04-23",
-        "tareas": [],
-        "id": "1745375632633"
       }
     ]
   }

@@ -4,7 +4,7 @@ import { sprintStore } from "../../../store/sprintStore";
 import { Button, Form, Modal } from "react-bootstrap";
 import { useSprints } from "../../../hooks/useSprint";
 import Swal from "sweetalert2";
-
+import * as Yup from "yup"; 
 type IModalSprint = {
 	show: boolean;
 	handleCloseModal: VoidFunction;
@@ -17,13 +17,25 @@ const initialState: ISprint = {
 	tareas: [],
 };
 
+// Define el esquema de validación
+const sprintSchema = Yup.object().shape({
+    nombre: Yup.string().required("El nombre es obligatorio."),
+    fechaInicio: Yup.date()
+        .required("La fecha de inicio es obligatoria.")
+        .typeError("La fecha de inicio no es válida."),
+    fechaCierre: Yup.date()
+        .required("La fecha de cierre es obligatoria.")
+        .typeError("La fecha de cierre no es válida.")
+        .min(Yup.ref("fechaInicio"), "La fecha de cierre no puede ser menor a la fecha de inicio."),
+});
+
 export const ModalSprint: FC<IModalSprint> = ({ show, handleCloseModal }) => {
 	const sprintActivo = sprintStore((state) => state.sprintActivo);
 
 	const { crearSprint, putEditarSprint } = useSprints();
 
 	const [formValues, setFormValues] = useState<ISprint>(initialState);
-
+	const [errors, setErrors] = useState<Record<string, string>>({}); 
 	useEffect(() => {
 		if (sprintActivo) setFormValues(sprintActivo);
 	}, [sprintActivo]);
@@ -33,29 +45,39 @@ export const ModalSprint: FC<IModalSprint> = ({ show, handleCloseModal }) => {
 		setFormValues((prev) => ({ ...prev, [`${name}`]: value }));
 	};
 
-	const handleSubmit = (e: FormEvent) => {
+	const handleSubmit = async (e: FormEvent) => {
 		e.preventDefault();
 
-		
-		const fechaInicio = new Date(formValues.fechaInicio);
-		const fechaCierre = new Date(formValues.fechaCierre);
+		try {
 
-		if (isNaN(fechaInicio.getTime()) || isNaN(fechaCierre.getTime())) {
-			Swal.fire("Error", "Las fechas proporcionadas no son válidas.", "error");
-			return;
-		}
+			setErrors({});
 
-		if (fechaCierre < fechaInicio) {
-			Swal.fire("Error", "La fecha de cierre no puede ser menor a la fecha de inicio.", "error");
-			return;
-		}
+			const formattedValues = {
+				...formValues,
+				fechaInicio: new Date(formValues.fechaInicio).toISOString().split("T")[0],
+				fechaCierre: new Date(formValues.fechaCierre).toISOString().split("T")[0],
+			};
 
-		if (sprintActivo) {
-			putEditarSprint(formValues);
-		} else {
-			crearSprint({ ...formValues, id: Date.now().toString() });
+			await sprintSchema.validate(formattedValues, { abortEarly: false });
+
+			if (sprintActivo) {
+				putEditarSprint(formValues);
+			} else {
+				crearSprint({ ...formValues, id: Date.now().toString() });
+			}
+			handleCloseModal();
+		} catch (err) {
+
+			if (err instanceof Yup.ValidationError) {
+				const validationErrors: Record<string, string> = {};
+				err.inner.forEach((error) => {
+					if (error.path) {
+						validationErrors[error.path] = error.message;
+					}
+				});
+				setErrors(validationErrors); 
+			}
 		}
-		handleCloseModal();
 	};
 
 	return (
@@ -91,7 +113,9 @@ export const ModalSprint: FC<IModalSprint> = ({ show, handleCloseModal }) => {
 							name="fechaInicio"
 							value={formValues.fechaInicio}
 							onChange={handleChange}
+							isInvalid={!!errors.fechaInicio} 
 						/>
+						<Form.Control.Feedback type="invalid">{errors.fechaInicio}</Form.Control.Feedback>
 					</Form.Group>
 
 					<Form.Group className="mb-3">
@@ -103,7 +127,9 @@ export const ModalSprint: FC<IModalSprint> = ({ show, handleCloseModal }) => {
 							name="fechaCierre"
 							value={formValues.fechaCierre}
 							onChange={handleChange}
+							isInvalid={!!errors.fechaCierre} 
 						/>
+						<Form.Control.Feedback type="invalid">{errors.fechaCierre}</Form.Control.Feedback>
 					</Form.Group>
 				</Modal.Body>
 				<Modal.Footer>
